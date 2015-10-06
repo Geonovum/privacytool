@@ -1,0 +1,110 @@
+/*
+
+General
+
+*/
+#toolform .steps li, #toolform .actions li  {    
+    padding: 0.5em 1em;
+    margin-bottom: 0.5em;
+    border-radius: 0.3em;
+}
+
+
+#toolform .steps > ul, #toolform .actions > ul {
+    list-style-type: none;
+    margin: 0em;
+}
+
+#toolform > .content > h3 {
+    display: none;
+}
+
+#toolform > .content > h3.current {
+    display: block;
+}
+
+
+/*
+
+Steps specific
+
+*/
+
+#toolform .steps .current-info {
+    left: -999em;
+    position: absolute;
+}
+
+#toolform .steps {
+    float: left;
+    padding-right: 1em;
+    padding-left: 0px;
+    width: 10em;
+}
+
+
+#toolform .steps > ul {
+    padding: 0em;
+}
+
+#toolform .steps li {
+    color: #64686B;
+    background-color: #cccccc;
+}
+
+#toolform .steps a  {
+    color: #ffffff;
+    font-size: 1.2em;
+    text-decoration: none;
+}
+
+#toolform .steps li.done {
+    background-color: #97C000;
+}
+
+#toolform .steps li.current {
+    background-color: #007BB8;
+}
+
+#toolform .steps li.done a {
+    color: #eeeeee;
+}
+
+#toolform .steps li.current a {
+    color: #ffffff;
+    font-weight: bold;
+}
+
+/*
+Actions
+*/
+
+#toolform .actions li  {
+    display: inline;
+}
+
+
+#toolform .actions {
+    text-align: right;
+    
+}
+
+#toolform .actions > ul {
+    padding-top: 0.5em;
+}
+#toolform .actions li {
+    background-color: #007BB8;
+    color: #ffffff;
+    margin-left: 0.5em;
+}
+
+#toolform .actions li a {
+    color: #ffffff;
+    font-size: 1.2em;
+    text-decoration: none;
+}
+
+#toolform .actions li.disabled {
+    color: #64686B;
+    background-color: #cccccc;
+}
