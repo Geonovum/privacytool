@@ -3,6 +3,10 @@
 General
 
 */
+
+html {
+    font-size: 1.0em;
+}
 #toolform .steps li, #toolform .actions li  {    
     padding: 0.5em 1em;
     margin-bottom: 0.5em;
@@ -23,7 +27,44 @@ General
     display: block;
 }
 
+.checkboxIntro{
+    font-size: 1.1em;
+}
 
+.explanation {
+    display: none;
+    /* border: 1px solid grey; */
+    color: #007bb8;
+} 
+
+/* question divs */
+fieldset > div {
+    padding-bottom: 1.5em;
+}
+
+.conditionalQuestion {
+    display: none;
+}
+
+.radioQuestion label {
+    display: inline;
+}
+
+.extrainfo {
+    display: none;
+    border: 1px solid #888888; 
+    background-color: #cccccc;
+    margin: 0.5em;
+    font-size: 0.8em;
+}
+
+#voorvragen {
+    display: none;
+}
+
+#begrippenlijst {
+    /* display: none; */
+}
 /*
 
 Steps specific
@@ -39,7 +80,8 @@ Steps specific
     float: left;
     padding-right: 1em;
     padding-left: 0px;
-    width: 10em;
+    /* width: 10em; for vertical */
+    width: 100%; /* for horizontal */
 }
 
 
@@ -50,11 +92,14 @@ Steps specific
 #toolform .steps li {
     color: #64686B;
     background-color: #cccccc;
+    float: left; /* for horizontal */
+    margin-right: 0.5em; /* for horizontal */
+    width: 130px; /* for horizontal */
 }
 
 #toolform .steps a  {
     color: #ffffff;
-    font-size: 1.2em;
+    font-size: 1.0em;
     text-decoration: none;
 }
 
