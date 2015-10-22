@@ -1,13 +1,81 @@
-/*
-
-General
-
-*/
+/* ******************************
+General styling and overrule some Geonovum styles
+****************************** */
 
 html {
     font-size: 1.0em;
 }
-#toolform .steps li, #toolform .actions li  {    
+
+hgroup {
+    display: none;
+} 
+
+#content-header {
+    text-align: center;
+}
+
+#main {
+    padding-top: 2em;
+}
+
+#page {
+    min-width: 480px;
+}
+
+#header, #content, #navigation .region, .one-sidebar .inner, .two-sidebars .inner, #breadcrumb .inner, #carousel .carousel-inner, #footer .inner {
+    min-width: 460px;
+    width: auto;
+}
+
+ol.alpha {
+    list-style-type: lower-alpha;
+}
+
+ol.upperalpha {
+    list-style-type: upper-alpha;   
+}
+
+ol.roman {
+    list-style-type: upper-roman;
+}
+
+h2 {
+    color: #007bb8;
+}
+
+/* 
+contributor list
+*/
+
+#listcontributors {
+    list-style-type: none;
+}
+
+div.contributor {
+    display: inline-block;
+    width: 220px;
+}
+
+div.organisation {
+    display: inline;
+}
+
+#listcontributors .contributor.title, #listcontributors .title{
+    font-weight: bold;
+}
+
+#content-area > div {
+    padding: 0.5em;
+}
+
+/* ******************************
+Styling of the questionaire and tabs
+****************************** */
+
+#toolform section {
+    min-height: 420px;
+}
+#toolform .steps li, #toolform .actions li, a.btn  {    
     padding: 0.5em 1em;
     margin-bottom: 0.5em;
     border-radius: 0.3em;
@@ -38,8 +106,16 @@ html {
 } 
 
 /* question divs */
+fieldset {
+    background-color: #ffffff;
+    margin-top: 1em;
+}
 fieldset > div {
     padding-bottom: 1.5em;
+}
+
+.inputarea {
+    float: right;
 }
 
 .conditionalQuestion {
@@ -62,14 +138,26 @@ fieldset > div {
     display: none;
 }
 
-#begrippenlijst {
+#toolform , #begrippenlijst {
     /* display: none; */
+    background-color: #eeeeee;
 }
-/*
 
-Steps specific
+#begrippenlijst > h4 {
+    margin-bottom: 0.5em;
+}
+#begrippenlijst > p {
+    margin-left: 5em;
+    margin-top: 0.5em;
+}
 
-*/
+/* **************************
+Steps styling
+************************** */
+
+#toolform {
+    padding: 0.5em;
+}
 
 #toolform .steps .current-info {
     left: -999em;
@@ -120,9 +208,9 @@ Steps specific
     font-weight: bold;
 }
 
-/*
+/* **************************
 Actions
-*/
+*************************** */
 
 #toolform .actions li  {
     display: inline;
@@ -131,19 +219,20 @@ Actions
 
 #toolform .actions {
     text-align: right;
-    
+    padding: 1em;
 }
 
 #toolform .actions > ul {
     padding-top: 0.5em;
 }
-#toolform .actions li {
+#toolform .actions li, a.btn {
     background-color: #007BB8;
     color: #ffffff;
     margin-left: 0.5em;
+    box-shadow: 0.3em 0.3em 0.3em #cccccc;
 }
 
-#toolform .actions li a {
+#toolform .actions li a, a.btn {
     color: #ffffff;
     font-size: 1.2em;
     text-decoration: none;
@@ -151,5 +240,7 @@ Actions
 
 #toolform .actions li.disabled {
     color: #64686B;
-    background-color: #cccccc;
+    background-color: #bbbbbb;
 }
+
+

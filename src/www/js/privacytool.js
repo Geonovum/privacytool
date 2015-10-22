@@ -1,4 +1,9 @@
 /*
+
+TODO: licensing of code
+
+*/
+/*
     config & logic
 */
 var conditionalGoto = {};
@@ -18,17 +23,29 @@ $(document).ready(function() {
         $("#toolform").steps({
             headerTag: "h3"
             , bodyTag: "section"
+            , saveState: true /* save state in a cookie */
             // , transitionEffect: "slideLeft",
             // , stepsOrientation: "vertical"
+            /* labels */
+            , labels: {
+                cancel: "Annuleren",
+                current: "huidige stap:",
+                pagination: "Pagina's",
+                finish: "Klaar",
+                next: "Volgende",
+                previous: "Vorige",
+                loading: "Aan het laden ..."
+            }
+            , onStepChanged: function (evt, currentIndex) {
+                // focus to the tool
+                scrollToElement("detool");
+            }
         });
     }
 )
 
 
 function checkRadioQuestion(answerId, radioName, radioValue) {
-    console.log(answerId)
-    console.log(radioName)
-    console.log(radioValue)
     $(".explanation."+radioName).hide();
     $(".explanation."+radioName + "." + radioValue).show();
     // now check if there is a conditional question to show
@@ -38,8 +55,9 @@ function checkRadioQuestion(answerId, radioName, radioValue) {
     // showExplanation(answerId)
     try {
         if (conditionalGoto[radioName][radioValue]) {
-            // console.log(conditionalGoto[radioName][radioValue])
+            // console.log(conditionalGoto[radioName][radioValue])            
             $("#"+conditionalGoto[radioName][radioValue]).show();
+            scrollToElement(conditionalGoto[radioName][radioValue]);
         }
     } catch (e) {
         if (console) console.log(e)
@@ -50,4 +68,9 @@ function checkRadioQuestion(answerId, radioName, radioValue) {
 
 function toggleExtraInfo(elem) {
     $(elem).siblings(".extrainfo").toggle();
+}
+
+
+function scrollToElement(elementId) {
+    $(window).scrollTop($("#" + elementId).offset().top)
 }
