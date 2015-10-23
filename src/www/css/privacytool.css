@@ -355,19 +355,21 @@ PRINT OVERRIDES
 @media print {
     html {
         font-size: 0.7em;
-        line-height: 1.0em;
+        line-height: 1.2em;
     }
 
-    a.btn, #sidemenu, #intakecopy {
+    a.btn, button, #sidemenu, #intakecopy {
         display: none !important;
     }
 
-    section, div.conditionalQuestion, {
+    #voorvragen, section, .conditionalQuestion {
         display: block !important;
     }
 
     div.steps, div.actions {
         display: none  !important;
     }
-
+    #toolform section {
+         min-height: auto;
+    }
 }

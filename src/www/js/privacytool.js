@@ -41,6 +41,24 @@ $(document).ready(function() {
                 scrollToElement("detool");
             }
         });
+
+        // FIXES for firefox printing
+        $(window).bind('beforeprint', function(){
+            $('fieldset').each(
+                function(item)
+                {
+                    $(this).replaceWith($('<div class="fieldset">' + this.innerHTML + '</div>'));
+                }
+            )
+        });
+        $(window).bind('afterprint', function(){
+            $('.fieldset').each(
+                function(item)
+                {
+                    $(this).replaceWith($('<fieldset>' + this.innerHTML + '</fieldset>'));
+                }
+            )
+        });
     }
 )
 
