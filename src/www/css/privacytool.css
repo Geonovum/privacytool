@@ -313,7 +313,39 @@ Actions
     background-color: #bbbbbb;
 }
 
+/*
 
+results
+
+*/
+#graphs, #graphsheader {
+    border: 1px solid #007bb8;
+    padding: 0.3em 0;
+    width: 100%;
+}
+
+div.scorebar {
+    background-color: #55aa44;
+    height: 1em;
+    margin-bottom: 0.7em;
+}
+
+div.scorebar.morethan50_1 {
+    background-color: #ff5522;
+}
+
+#graphsheader > div > div{
+    display: inline;
+    width: auto;
+}
+
+#graphsheader #zero {
+    left: 0;
+}
+
+#graphsheader #hundred {
+    float: right;
+}
 /* 
 
 PRINT OVERRIDES

@@ -62,7 +62,8 @@ function checkRadioQuestion(answerId, radioName, radioValue) {
     } catch (e) {
         if (console) console.log(e)
     }
-    
+    // calculate scores
+    calculateScores()
 }
 
 function updateIntake (answerId, answerText) {
@@ -88,4 +89,35 @@ function toggleIntake() {
 
 function scrollToElement(elementId) {
     $(window).scrollTop($("#" + elementId).offset().top)
+}
+
+function calculateScores() {
+    // get all values
+    var parts=[{topic: "verwantschap", score:0, max: 7.5}, {topic: "aardgegevens", score:0, max: 16},{topic: "gevolgen", score:0, max: 7},{topic: "verkrijgen", score:0, max: 9.5},{topic: "waarborgen", score:0, max: 17}]    
+    // for 
+    html="<h5>TESTEN</h5>";
+    graphshtml=""
+    $("#tussenresultaat").html("")
+    for (k in parts) {
+        // console.log(k)
+        var scoreObj = parts[k]
+        var score = 0;
+        $("#" + scoreObj.topic+ " input:radio:checked").each(function() {
+            var value = parseFloat($(this).val());
+            score+=value;
+        });    
+        scoreObj.score = score;
+        scoreObj.percentage = score * 100 / scoreObj.max;
+        html+="<p>"+scoreObj.topic+": " +score+ " (" + Math.round(scoreObj.percentage)+ "%)</p>";
+        var morethan50 = "morethan50_" + Math.round(scoreObj.percentage/100);
+        graphshtml += "<label for='"+scoreObj.topic+"_graphscore' >"+scoreObj.topic+ " (" + Math.round(scoreObj.percentage)+ "%)</label><div class='scorebar "+morethan50+"' id='"+scoreObj.topic+"_graphscore' style='width:"+scoreObj.percentage+"%'>&nbsp;</div>"
+        if (console) {
+            console.log(scoreObj.topic)
+            console.log(score)
+        }
+    }
+    $("#tussenresultaat").html(html);
+    $("#scores").html(html);
+
+    $("#graphs").html(graphshtml);
 }
