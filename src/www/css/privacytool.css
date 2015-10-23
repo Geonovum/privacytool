@@ -372,4 +372,6 @@ PRINT OVERRIDES
     #toolform section {
          min-height: auto;
     }
+    .radioQuestion { padding-bottom: 2em; }
+    .inputarea textarea {width:90%}
 }

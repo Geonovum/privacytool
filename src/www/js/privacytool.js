@@ -43,6 +43,7 @@ $(document).ready(function() {
         });
 
         // FIXES for firefox printing
+        // TODO: also for textareas?
         $(window).bind('beforeprint', function(){
             $('fieldset').each(
                 function(item)
