@@ -65,11 +65,26 @@ function checkRadioQuestion(answerId, radioName, radioValue) {
     
 }
 
+function updateIntake (answerId, answerText) {
+    // Update a list with the intake information, as a copy under the Intake vragen answers
+    var suffix="_copy";
+    var copyId = answerId+suffix;
+    if ($("#"+ copyId).length == 0) {
+        // first create the element
+        $("#intakecopy").append("<div id='"+copyId+"'></div>");
+
+    }    
+    var label = $("label[for='"+answerId+"']").html();
+    $("#"+ copyId).html("<label>"+label+"</label><textarea disabled='disabled'>"+answerText+"</textarea>");
+}
 
 function toggleExtraInfo(elem) {
     $(elem).siblings(".extrainfo").toggle();
 }
 
+function toggleIntake() {
+    $("#intakecopy").toggle();
+}
 
 function scrollToElement(elementId) {
     $(window).scrollTop($("#" + elementId).offset().top)
