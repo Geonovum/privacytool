@@ -38,7 +38,62 @@ $(document).ready(function() {
             }
             , onStepChanged: function (evt, currentIndex) {
                 // focus to the tool
-                scrollToElement("detool");
+            }
+            , onStepChanging: function (event, currentIndex, newIndex) {
+                // if not all answers are provided, then disable and give warning
+                // toolform-p-3
+                // section element
+                // for radio' questions:
+                // first: get a list of all questions:
+                var answered = new Array();
+                var radiosNotAnswered = new Array();
+                var textareaNotAnswered = new Array();
+                var prevName="";
+                // try radio buttons first
+                $("#toolform-p-" + currentIndex + " .inputarea input").each(function(){
+                    var name = $(this).prop("name");
+                    if (prevName!=name) {
+                        var answer = $("#toolform-p-" + currentIndex + " .inputarea input[name='"+name+"']:checked").val();
+                        if (!answer) {
+                            radiosNotAnswered.push(name);
+                        }
+                        prevName = name;
+                    }
+                });
+                // and then any textarea, if available
+                $("#toolform-p-" + currentIndex + " .inputarea textarea").each(function(){
+                    var name = $(this).prop("name");
+                    if (prevName!=name) {
+                        var answer = $("#toolform-p-" + currentIndex + " .inputarea textarea[name='"+name+"']").val();
+                        if (!answer) {
+                            textareaNotAnswered.push(name);
+                        }
+                        prevName = name;
+                    }
+                });           
+                
+                var errorMsg = "Vul alstublieft de ontbrekende vragen in, gemarkeerd met een rode omlijning."
+                var errorTitle = "Nog niet alle vragen zijn beantwoord";
+                var elemId=$("#toolform-p-" + currentIndex +" fieldset").prop("id");
+                // console.log(elemId)
+                if (elemId) scrollToElement(elemId);
+                // $(window).scrollTop($("#toolform-p-" + currentIndex +" fieldset")[0].offset().top())
+                if (radiosNotAnswered.length > 0) {                    
+                    for (a in radiosNotAnswered) {
+                        $("#toolform-p-" + currentIndex + " .inputarea input[name='"+radiosNotAnswered[a]+"']").parent().addClass("invalidanswer")
+                    }
+                    // $(window).scrollTop($("#toolform-p-" + currentIndex +" fieldset").offset().top())
+                    showMessage(errorTitle, errorMsg);
+                    return false;
+                } else if (textareaNotAnswered.length > 0) {
+                    for (a in textareaNotAnswered) {
+                        $("#toolform-p-" + currentIndex + " .inputarea textarea[name='"+textareaNotAnswered[a]+"']").addClass("invalidanswer")
+                    }
+                    showMessage(errorTitle, errorMsg);
+                    return false;
+                } else {                    
+                    return true; 
+                }
             }
         });
 
@@ -59,6 +114,24 @@ $(document).ready(function() {
                     $(this).replaceWith($('<fieldset>' + this.innerHTML + '</fieldset>'));
                 }
             )
+        });
+
+        $('#upload').on('click', function() {
+            var file_data = $('#jsonstring').prop('files')[0];   
+            var form_data = new FormData();                  
+            form_data.append('file', file_data);
+            $.ajax({
+                    url: 'upload.php',
+                    dataType: 'json', 
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    data: form_data,                         
+                    type: 'post',
+                    success: function(response){
+                        processAnswers(response);
+                    }
+            });
         });
     }
 )
@@ -81,6 +154,8 @@ function checkRadioQuestion(answerId, radioName, radioValue) {
     } catch (e) {
         if (console) console.log(e)
     }
+    // check
+    $("#"+answerId).parent().removeClass("invalidanswer");
     // calculate scores
     calculateScores()
 }
@@ -96,6 +171,9 @@ function updateIntake (answerId, answerText) {
     }    
     var label = $("label[for='"+answerId+"']").html();
     $("#"+ copyId).html("<label>"+label+"</label><textarea disabled='disabled'>"+answerText+"</textarea>");
+    if (answerText.length > 0 ) {
+        $("#"+answerId).removeClass("invalidanswer");
+    }
 }
 
 function toggleExtraInfo(elem) {
@@ -112,7 +190,7 @@ function scrollToElement(elementId) {
 
 function calculateScores() {
     // get all values
-    var parts=[{topic: "verwantschap", score:0, max: 7.5}, {topic: "aardgegevens", score:0, max: 16},{topic: "gevolgen", score:0, max: 7},{topic: "verkrijgen", score:0, max: 9.5},{topic: "waarborgen", score:0, max: 17}]    
+    var parts=[{topic: "verwantschap", score:0, max: 7.5, graphlabel:"A"}, {topic: "aardgegevens", score:0, max: 17, graphlabel:"B"},{topic: "gevolgen", score:0, max: 7, graphlabel:"C"},{topic: "verkrijgen", score:0, max: 9.5, graphlabel:"D"},{topic: "waarborgen", score:0, max: 17, graphlabel:"E"}]    
     // for 
     html="<h5>TESTEN</h5>";
     graphshtml=""
@@ -129,14 +207,78 @@ function calculateScores() {
         scoreObj.percentage = score * 100 / scoreObj.max;
         html+="<p>"+scoreObj.topic+": " +score+ " (" + Math.round(scoreObj.percentage)+ "%)</p>";
         var morethan50 = "morethan50_" + Math.round(scoreObj.percentage/100);
-        graphshtml += "<label for='"+scoreObj.topic+"_graphscore' >"+scoreObj.topic+ " (" + Math.round(scoreObj.percentage)+ "%)</label><div class='scorebar "+morethan50+"' id='"+scoreObj.topic+"_graphscore' style='width:"+scoreObj.percentage+"%'>&nbsp;</div>"
-        if (console) {
-            console.log(scoreObj.topic)
-            console.log(score)
-        }
+
+        // value in the score table/ description
+        $("#score_"+scoreObj.topic + "> div.scorevalue").html(Math.round(scoreObj.percentage)+"%");
+        // which one to show / hide: 
+        $("#score_"+scoreObj.topic + " > .scoreexplanation").hide()
+        $("#score_"+scoreObj.topic + " > .scoreexplanation." + morethan50).show();
+        // TODO: separate element of labels
+
+        graphshtml += "<label for='"+scoreObj.topic+"_graphscore' >"+scoreObj.graphlabel+ " (" + Math.round(scoreObj.percentage)+ "%)</label><div class='scorebar "+morethan50+"' id='"+scoreObj.topic+"_graphscore' style='height:"+scoreObj.percentage+"%'>&nbsp;</div>"
     }
-    $("#tussenresultaat").html(html);
-    $("#scores").html(html);
+    $("#tussenresultaat").html(html);    
 
     $("#graphs").html(graphshtml);
+
+}
+
+
+function writeScores() {
+    var scoresState = new Array();
+    $("input:radio:checked").each(function() {
+        scoresState.push({"type":"radio","id":$(this).attr("name"), "value":$(this).val()}); // value? or name?
+    });  
+    // also: intake questions
+    $("#intakevragen textarea").each(function() {
+        scoresState.push({"type":"textarea", "id":$(this).attr("name"), "value":$(this).val()}); // value? or name?
+    });
+    // TODO: write to file
+    var jsonAnswers = {"answers": scoresState}
+    // if (console) console.log(JSON.stringify(jsonAnswers))
+    // $.post("privacytoolanswers.php", JSON.stringify(jsonAnswers)); // url, data
+    // jquery file download 
+    $.fileDownload("privacytoolanswers.php", {
+        // preparingMessageHtml: "We are preparing your report, please wait...",
+        // failMessageHtml: "There was a problem generating your report, please try again.",
+        httpMethod: "POST",
+        data: {"jsonstring":JSON.stringify(jsonAnswers)}
+    });
+}
+
+
+
+function processAnswers (data) {
+    for (k in data) {
+        var answerlist = data[k]
+        // find the element
+        for (a in answerlist) {
+            var answer = answerlist[a]
+            if (answer["type"]=="radio") {
+                // okay, find the element with the apropriate value . We need to go into the answer id div to find the corresponding input                
+                $("#"+answer["id"] +" div.inputarea input[value='"+answer["value"]+"']").prop("checked", true).parent().removeClass("invalidanswer");
+            }
+            else if (answer["type"]=="textarea") {
+                // okay, find the element with the apropriate value . We need to go into the answer id div to find the corresponding input
+                var textareaId=answer["id"] +"-text"
+                $("#"+textareaId).val(answer["value"]);
+                updateIntake(textareaId, answer["value"]);
+            }
+        }
+    }
+    // show all answers of the voorvragen questions
+    $("#voorvragen>div").each(function(){
+            $(this).show();
+            // also: show the selected answer?
+        });
+    $('#voorvragen').show()
+    // calculatescores
+    calculateScores();
+    $('#uploadarea').toggle();
+}
+
+function showMessage(alertTitle, alertMessage) {
+    $("#alertTitle").html(alertTitle)
+    $("#alertMessage").html(alertMessage)
+    $("#alert").show();
 }

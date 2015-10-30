@@ -5,12 +5,14 @@ General styling and overrule some Geonovum styles
 /*
 
 green: #97c000;
+orange/red: #ff5522;
+blue: #007bb8;
 
 */
 
 
 html {
-    font-size: 1.0em;
+    font-size: 0.9em;
 }
 
 hgroup {
@@ -34,6 +36,40 @@ hgroup {
     font-weight: bold;
 
 }
+
+#alert {
+    display: none;
+    position: fixed;
+    top:30%;
+    width: 30%;
+    left: 35%;
+    height: auto;
+    padding: 1em;
+    background-color: #ffffaa;
+    border: 3px solid #ff5522;
+    box-shadow: 1em 1em 1em;
+}
+
+
+#uploadarea {
+    display: none;
+    border: 2px solid #007bb8;
+    background-color: white;    
+    position: fixed;
+    overflow: none;
+    padding: 1em;
+    top:30%;
+    width: 40%;
+    left: 30%;
+    height: auto;
+    box-shadow: 1em 1em 2em #888888;
+}
+
+
+#uploadarea > button, #alert > button {
+    float: right;
+}
+
 #content-header {
     text-align: center;
 }
@@ -121,13 +157,18 @@ Styling of the questionaire and tabs
 
 .checkboxIntro{
     font-size: 1.1em;
+    display: inline;
 }
 
 .explanation {
+    border: 2px solid #dddddd;
+    box-shadow: 0.5em 0.5em 0.5em #aaaaaa;
+    color: #000000;
     display: none;
-    /* border: 1px solid grey; */
-    color: #007bb8;
+    margin-top: 0.5em;
+    padding: 0.5em;    
 } 
+
 
 /* question divs */
 fieldset {
@@ -155,12 +196,16 @@ fieldset > div {
 }
 
 .extrainfo {
+    background-color: #007bb8;
+    color: white;
     display: none;
-    border: 1px solid #888888; 
-    background-color: #cccccc;
+    font-size: 1em;
     margin: 0.5em;
     padding: 0.5em;
-    font-size: 0.9em;   
+}
+
+.extrainfo a {
+    color: white;
 }
 
 #voorvragen {
@@ -193,6 +238,7 @@ textarea {
     right: 0px;
     top: 5%;
 }
+
 
 #intakecopy textarea {
     background-color: #eeeeee;
@@ -313,39 +359,134 @@ Actions
     background-color: #bbbbbb;
 }
 
+
+.checkboxIntro > button, .radioQuestion button {
+    background-color: #007bb8;
+    color: white;
+    font-size: 0.9em;
+    padding: 0.2em; 
+}
+
+.invalidanswer {
+    border: 2px solid #ff5522;
+}
+
+
 /*
 
 results
 
 */
-#graphs, #graphsheader {
-    border: 1px solid #007bb8;
-    padding: 0.3em 0;
+#graphs, #graphsheader {    
+    padding: 0em;
     width: 100%;
+    font-size: 0.9em;
+    max-width: 450px;
+}
+
+#graphs {    
+    height: 250px;
+    position: relative;
+}
+
+#graphs label {
+    display: inline;
+    left: 4em;
+    margin: 0.5em;
+    position: relative;
+    vertical-align: baseline;
+    bottom: 0;
+}
+
+#graphsheader{
+    border-bottom: 1px solid #007bb8;    
+    background: white none repeat scroll 0 0;
+    float: left;
+    height: 250px;
 }
 
 div.scorebar {
-    background-color: #55aa44;
-    height: 1em;
-    margin-bottom: 0.7em;
+    background-color: #ff5522;
+    width: 2em;
+    /* margin-bottom: 0.7em; */
+    /* float: left; */
+    display: inline-block;
+    position: absolute;
+    /* vertical-align: baseline;*/ 
+    bottom: 0px;
 }
 
 div.scorebar.morethan50_1 {
-    background-color: #ff5522;
+    background-color: #55aa44;
+}
+
+div.scoreexplanation {
+    border-left: 1em solid #ff5522;
+    padding-left: 0.3em;
+}
+
+div.scoreexplanation.morethan50_1 {
+    border-left: 1em solid #55aa44;
+}
+
+#graphsheader > div {
+    height: 100%;
+    position: relative;
 }
 
 #graphsheader > div > div{
     display: inline;
-    width: auto;
+    width: 100%;
+    bottom: 0;
+    position: absolute;
+    line-height: 1em;
 }
 
 #graphsheader #zero {
     left: 0;
+    bottom: 0;
 }
 
 #graphsheader #hundred {
-    float: right;
+    border-bottom: 1px dotted #007bb8;
+    bottom: 100%;
 }
+
+#graphsheader #twentyfive {
+    border-bottom: 1px dotted #007bb8;
+    bottom: 25%;
+}
+
+#graphsheader #fifty {
+    border-bottom: 1px dotted #007bb8;
+    bottom: 50%;
+}
+
+#graphsheader #seventyfive {
+    border-bottom: 1px dotted #007bb8;
+    bottom: 75%;
+}
+
+div#scoreslist > div {
+    background-color: white;
+    /* border: 1px solid #007bb8; */
+    margin-bottom: 0.5em;
+}
+
+.scoreelement{
+    width: 60%;
+    display: inline-block;
+    font-weight: bold;
+}
+
+.scorevalue {
+    width: 40%;
+    display: inline-block;
+    text-align: right;
+    font-weight: bold;
+}
+
+
 /* 
 
 PRINT OVERRIDES
@@ -374,4 +515,9 @@ PRINT OVERRIDES
     }
     .radioQuestion { padding-bottom: 2em; }
     .inputarea textarea {width:90%}
+
+    .extrainfo {display: none;}
+
+    .explanation {box-shadow: none;}
 }
+
