@@ -37,15 +37,14 @@ $(document).ready(function() {
                 loading: "Aan het laden ..."
             }
             , onStepChanged: function (evt, currentIndex) {
-                // focus to the tool
+                // focus to the tool                
             }
             , onStepChanging: function (event, currentIndex, newIndex) {
+                // if back, then don't validate
+                if (newIndex < currentIndex) return true;
+
                 // if not all answers are provided, then disable and give warning
-                // toolform-p-3
-                // section element
                 // for radio' questions:
-                // first: get a list of all questions:
-                var answered = new Array();
                 var radiosNotAnswered = new Array();
                 var textareaNotAnswered = new Array();
                 var prevName="";
@@ -74,9 +73,9 @@ $(document).ready(function() {
                 
                 var errorMsg = "Vul alstublieft de ontbrekende vragen in, gemarkeerd met een rode omlijning."
                 var errorTitle = "Nog niet alle vragen zijn beantwoord";
-                var elemId=$("#toolform-p-" + currentIndex +" fieldset").prop("id");
+                /* var elemId=$("#toolform-p-" + currentIndex +" fieldset").prop("id");
                 // console.log(elemId)
-                if (elemId) scrollToElement(elemId);
+                if (elemId) scrollToElement(elemId); */
                 // $(window).scrollTop($("#toolform-p-" + currentIndex +" fieldset")[0].offset().top())
                 if (radiosNotAnswered.length > 0) {                    
                     for (a in radiosNotAnswered) {
@@ -191,12 +190,10 @@ function scrollToElement(elementId) {
 function calculateScores() {
     // get all values
     var parts=[{topic: "verwantschap", score:0, max: 7.5, graphlabel:"A"}, {topic: "aardgegevens", score:0, max: 17, graphlabel:"B"},{topic: "gevolgen", score:0, max: 7, graphlabel:"C"},{topic: "verkrijgen", score:0, max: 9.5, graphlabel:"D"},{topic: "waarborgen", score:0, max: 17, graphlabel:"E"}]    
-    // for 
-    html="<h5>TESTEN</h5>";
+    var html="<h5>TESTEN</h5>";
     graphshtml=""
     $("#tussenresultaat").html("")
     for (k in parts) {
-        // console.log(k)
         var scoreObj = parts[k]
         var score = 0;
         $("#" + scoreObj.topic+ " input:radio:checked").each(function() {
@@ -213,14 +210,10 @@ function calculateScores() {
         // which one to show / hide: 
         $("#score_"+scoreObj.topic + " > .scoreexplanation").hide()
         $("#score_"+scoreObj.topic + " > .scoreexplanation." + morethan50).show();
-        // TODO: separate element of labels
-
         graphshtml += "<label for='"+scoreObj.topic+"_graphscore' >"+scoreObj.graphlabel+ " (" + Math.round(scoreObj.percentage)+ "%)</label><div class='scorebar "+morethan50+"' id='"+scoreObj.topic+"_graphscore' style='height:"+scoreObj.percentage+"%'>&nbsp;</div>"
     }
-    $("#tussenresultaat").html(html);    
-
+    // $("#tussenresultaat").html(html);
     $("#graphs").html(graphshtml);
-
 }
 
 
@@ -281,4 +274,10 @@ function showMessage(alertTitle, alertMessage) {
     $("#alertTitle").html(alertTitle)
     $("#alertMessage").html(alertMessage)
     $("#alert").show();
+}
+
+function toggleBegrippenlijst() {
+    var html = $("#begrippenlijst").html();
+    $("#begrippenlijstcopycontent").html(html);
+    $("#begrippenlijstcopy").show();
 }

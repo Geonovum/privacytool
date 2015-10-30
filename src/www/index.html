@@ -1,5 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<!-- code: Thijs Brentjens -->
+<!-- code: Thijs Brentjens, thijs@brentjensgeoict.nl
+
+-->
 <!-- TODO: licensing of code -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="nl" lang="nl" dir="ltr">
 <head>
@@ -391,7 +393,7 @@ Deze onverenigbaarheidsvragen zijn geformuleerd in de vorm van stellingen. Je mo
                                                             <input id="voorvragen-F-ja" name="voorvragen-F" type="radio" value="ja" onchange="checkRadioQuestion(this.id, this.name, this.value)"/><label for="voorvragen-F-ja">ja</label>
                                                         </div>
                                                         <button onclick="toggleExtraInfo(this)">Toelichting op vraag &raquo;</button>
-                                                        <div class="extrainfo"><a href="http://wetten.overheid.nl/BWBR0011468/Hoofdstuk2/Paragraaf1/Artikel9/geldigheidsdatum_19-10-2015" target="_blank">Artikel 9 lid 4 Wbp</a> bevat een uitzondering op de hoofdregel dat een verwerking met een nieuw doel is toegestaan mits deze maar niet onverenigbaar is: als er een geheimhoudingsplicht uit hoofde van ambt, beroep of wettelijk voorschrift ligt, is dit nummer <b>Thijs: NIMMER?</b> toegestaan.
+                                                        <div class="extrainfo"><a href="http://wetten.overheid.nl/BWBR0011468/Hoofdstuk2/Paragraaf1/Artikel9/geldigheidsdatum_19-10-2015" target="_blank">Artikel 9 lid 4 Wbp</a> bevat een uitzondering op de hoofdregel dat een verwerking met een nieuw doel is toegestaan mits deze maar niet onverenigbaar is: als er een geheimhoudingsplicht uit hoofde van ambt, beroep of wettelijk voorschrift ligt, is dit nimmer toegestaan.
                                                         </div>
                                                         <div class="explanation voorvragen-F nee">Ga door naar <a href='#voorvragen-F'>vraag G</a>
                                                         </div>
@@ -501,14 +503,12 @@ Deze onverenigbaarheidsvragen zijn geformuleerd in de vorm van stellingen. Je mo
 <p>In de tabel hieronder zie je de 6 te beantwoorden vragen. Dit zijn ‘open vragen’. De antwoorden kunnen in de invulruimte achter de vragen ingevuld worden. Iedere vraag bevat een toelichting, op te vragen via de Info-knop.</p>
 
 <h5>Zichtbaarheid van de antwoorden in het verdere invulproces</h5>
-<p>Omdat de antwoorden op deze intake-vragen je referentiekader vormen bij het invullen van de vragen in onderdeel III, zullen deze steeds raadpleegbaar blijven, <b>doordat ze in een side menu aanklikbaar zijn. Thijs: dit hangt samen met de vormgeving en de functionaliteit die we kiezen. Zo nodig moet de tekst nog aangepast worden. Wellicht hier een illustratie invoegen van dat side menu?. Antwoord Thijs: kijken wat kan. Wellicht na invullen intake een (vaste) button "Intake vragen" erbij en daarin de info tonen bij klikken. Wel kijken wat er qua layout mogelijk is, want de ruimte is beperkt, zeker als een iPad oid gebruikt wordt]</b></p>
+<p>Omdat de antwoorden op deze intake-vragen je referentiekader vormen bij het invullen van de vragen in onderdeel III, zullen deze steeds raadpleegbaar blijven, doordat ze via het menu aan de zijkant opvraagbaar zijn. </b></p>
 
 <h5>Hulp bij het snappen</h5>
 <p>De Wbp is een ingewikkelde regeling en bevat vele abstracte en juridisch technische termen. Daarom bevat de tool hyperlinks die je naar doorleiden naar uitgebreidere uitleg en de relevante wetsartikelen.</p>
 
-<b>De in te vullen vragenlijst
-Thijs, het gaat in dit onderdeel II om open vragen. Er moet dus ruimte zijn om de antwoorden in te vullen. Ook zou het goed zijn om deze te kunnen bewaren (downloaden) en printen. Bewaren/downloaden: misschie via print knop, kan de gebruiker zelf printen naar een bestand?</b>
-
+<h5>De in te vullen vragenlijst</h5>
 
                                             <fieldset id="intakevragen">
                                                 <legend>Intake</legend>
@@ -597,9 +597,11 @@ Thijs, het gaat in dit onderdeel II om open vragen. Er moet dus ruimte zijn om d
                                             </ol>                                            
                                             Het werkt simpel: de te beantwoorden vragen zijn geformuleerd in de vorm van stellingen. Je moet steeds invullen of de stelling klopt of niet klopt door ja of nee te antwoorden. De tool telt deze vervolgens zelf op en geeft daar bovendien een weging aan: sommige uitkomsten zijn nu eenmaal belangrijker dan anderen. Uiteindelijk, als je alle vragen hebt ingevuld, levert dit een totaalscore op die aangeeft hoe je voorgenomen gebruik scoort op de 'onverenigbaarheidstoets' van artikel 9 Wbp. Deze score wordt afgebeeld in de vorm van een spinnenwebdiagram en geeft een indicatie over de toelaatbaarheid van je voorgenomen gebruik.
                                             </p>
-                                        </section>
+                                        
+                                        <!-- </section>
                                         <h3>Verwantschap</h3>
-                                        <section>
+                                        <section> -->
+
                                             <h4>A. Verwantschap</h4>
                                             <p>Het eerste element van artikel 9 Wbp aan de hand waarvan je moet beoordelen of een nieuwe verwerking van gegevens niet onverenigbaar is met het oorspronkelijke doel waarvoor de gegevens verzameld zijn, gaat over de verwantschap tussen het doel waarvoor je de gegevens overweegt te gebruiken enerzijds en het doel waarvoor de gegevens zijn verkregen anderzijds. Hoe dichter deze twee doeleinden bij elkaar liggen (oftewel hoe meer verwant ze zijn), hoe eerder de verdere verwerking verenigbaar is met het doel waarvoor de gegevens zijn verzameld.
 <b>THIJS: kloppen de scores wel in de Excel sheet? Lijkt anders dan bij de andere onderdelen. Namelijk correctie en ja-scores zitten anders in elkaar, vraag 4 en 5?</b>
@@ -618,7 +620,6 @@ Thijs, het gaat in dit onderdeel II om open vragen. Er moet dus ruimte zijn om d
                                                     <button onclick="toggleExtraInfo(this)">Toelichting op vraag &raquo;</button>
                                                     <div class="extrainfo">Deze stelling geeft een indicatie in hoeverre de gegevens 'onder hetzelfde dak' blijven, hetgeen weer een indicatie geeft van de verwantschap op een hoger niveau. Zo is het waarschijnlijker dat er eerder verwantschap bestaan tussen oorspronkelijke en nieuwe verwerkingen binnen de zelfde organisatie, dan tussen verwerkingen door verschillende organisaties.</div>
                                                 </div>
-
 
                                                 <div id='onverenigbaarheid-2' class="radioQuestion score">
                                                     <div class="checkboxIntro">2. Het doel van zowel de oorspronkelijke als de nieuwe verwerking zijn gericht op dezelfde en/of wel sterk verbonden thema’s of sectoren.                                   
@@ -672,9 +673,11 @@ Thijs, het gaat in dit onderdeel II om open vragen. Er moet dus ruimte zijn om d
                                                 </div>
 
                                             </fieldset>
-                                        </section>
+                                        
+                                        <!-- </section>
                                         <h3>Aard gegevens</h3>
-                                        <section>
+                                        <section> -->
+
                                             <h4>B. Aard van de gegevens</h4>
                                             <p>Het tweede element van artikel 9 Wbp aan de hand waarvan je moet beoordelen of een nieuwe verwerking van gegevens niet onverenigbaar is met het oorspronkelijke doel waarvoor de gegevens verzameld zijn,  betreft de aard van gegevens. Naarmate de aard van de gegevens meer 'bijzonder' is, zal verenigbaarheid van de voorgenomen verwerking met het oorspronkelijke doel (of doelen) kleiner zijn. Dat 'bijzondere' gaat overigens verder dan het wettelijke regime (art 16 Wbp noemt deze op): ook andere gegevens kunnen naar hun aard bijzonder zijn. Denk bijvoorbeeld aan informatie over iemands financiele positie, gegevens over minderjarigen en locatiegegevens van iemands mobiele telefoon.</p>
                                             <fieldset id="aardgegevens">
@@ -810,10 +813,9 @@ Thijs, het gaat in dit onderdeel II om open vragen. Er moet dus ruimte zijn om d
                                                 </div>
 
                                             </fieldset>
-                                        </section>
-
+                                        <!-- </section>
                                         <h3>Gevolgen</h3>
-                                        <section>
+                                        <section>  -->
                                             <h4>C. Gevolgen van de verwerking</h4>
                                             <p>Het derde element van artikel 9 Wbp aan de hand waarvan je moet beoordelen of een nieuwe verwerking van gegevens niet onverenigbaar is met het oorspronkelijke doel waarvoor de gegevens verzameld zijn, betreft de gevolgen die de verwerking van gegevens kan hebben voor de betrokkene. Welke implicaties heeft voorgenomen verwerking voor de persoon in kwestie? Naarmate de relatie tussen de verwerking en gevolgen directer zijn zal voorgenomen verwerking eerder onverenigbaar zijn. Dit geldt in nog sterkere mate als de gevolgen negatief kunnen uitpakken. Indien de gegevensverwerking niet leidt tot het nemen van een beslissing, zal er minder snel sprake van onverenigbaar gebruik van gegevens.</p>
                                             <fieldset id="gevolgen">
@@ -870,9 +872,9 @@ Thijs, het gaat in dit onderdeel II om open vragen. Er moet dus ruimte zijn om d
                                                     <div class="extrainfo">Spiegelbeeld van de vorige vraag: indien de voorgenomen verwerking nadelig kan uitpakken voor betrokkenen zal deze minder snel verenigbaar zijn. Denk hierbij aan het opsporen van fraude.</div>
                                                 </div>
                                             </fieldset>
-                                        </section>
+                                        <!--  </section>
                                         <h3>Verkrijgen</h3>
-                                        <section>
+                                        <section> -->
                                             <h4>D. Wijze van verkrijgen van de gegevens</h4>
                                             <p>De Wbp stelt dat ook de mate waarin jegens de betrokkene wordt voorzien in passende waarborgen moet worden meegenomen bij het bepalen of een nieuw doel niet onverenigbaar is. Passende waarborgen kunnen op technisch en organisatorisch gebied worden getroffen. Welke waarborgen passend zijn zal steeds per concreet geval moeten worden beoordeeld. Het voorzien in passende waarborgen maakt het mogelijk om een minder goede score op de voorgaande elementen (enigszins) te ‘compenseren’ en verdere verwerking aldus toch niet onverenigbaar te maken. Het is echter niet zo dat het enkel scheppen van waarborgen op zich voldoende kan zijn om onverenigbaarheid op te heffen.</p>
                                             <fieldset id="verkrijgen">
@@ -958,9 +960,9 @@ Thijs, het gaat in dit onderdeel II om open vragen. Er moet dus ruimte zijn om d
 
 
                                             </fieldset>
-                                        </section>
+                                        <!--  </section>
                                         <h3>Waarborgen</h3>
-                                        <section>
+                                        <section> -->
                                             <h4>E. De waarborgen</h4>
                                             <p>De Wbp stelt dat ook de mate waarin jegens de betrokkene wordt voorzien in passende waarborgen moet worden meegenomen bij het bepalen of een nieuw doel niet onverenigbaar is. Passende waarborgen kunnen op technisch en organisatorisch gebied worden getroffen. Welke waarborgen passend zijn zal steeds per concreet geval moeten worden beoordeeld. Het voorzien in passende waarborgen maakt het mogelijk om een minder goede score op de voorgaande elementen (enigszins) te ‘compenseren’ en verdere verwerking aldus toch niet onverenigbaar te maken. Het is echter niet zo dat het enkel scheppen van waarborgen op zich voldoende kan zijn om onverenigbaarheid op te heffen.</p>
                                             <fieldset id="waarborgen">
@@ -1226,28 +1228,33 @@ je score op 'gevolgen van de verwerking' ligt onder de 50%. Het is raadzaam om t
 
             <!-- close page-inner, page -->
             <div id="sidemenu">
-                Snel:<br/>
-                <a href="#begrippenlijst">Begrippenlijst</a><br/>
-                <button onclick="toggleIntake()" class="btn">&laquo; Intake</button><br/>
-                <div id="historyback"><button onclick="window.history.go(-1)">terug</button></div>
-                <button onclick="window.print()" class="btn">Printen</button><br/>
-                <button onclick="writeScores()" class="btn" title="Sla de antwoorden op in een bestand, om later opnieuw te gebruiken">Download antwoorden</button><br/>
-                <button onclick="$('#uploadarea').toggle()" class="btn" title="Laad antwoorden uit een bestand">Antwoorden bestand laden</button>
-                <div id="tussenresultaat">
-                </div>
+                <ul>                
+                    <li><button onclick="toggleBegrippenlijst()">Begrippenlijst</button></li>
+                    <li><button onclick="window.history.go(-1)">terug</button></li>
+                    <li><button onclick="toggleIntake()" class="btn">Intake antwoorden</button></li>                    
+                    <li><button onclick="window.print()" class="btn">Printen</button></li>
+                    <li><button onclick="writeScores()" class="btn" title="Sla de antwoorden op in een bestand, om later opnieuw te gebruiken">Download antwoorden</button></li>
+                    <li><button onclick="$('#uploadarea').toggle()" class="btn" title="Laad antwoorden uit een bestand">Upload antwoorden</button></li>
+                </ul>
+                <div id="tussenresultaat"></div>
             </div>
             <div id="intakecopy">
                 <h3>Antwoorden van de intake vragen</h3>
-                <button onclick="$('#intakecopy').hide()">&raquo;</button>
+                <button onclick="$('#intakecopy').hide()">Sluiten</button>
             </div>
-
+            <div id="begrippenlijstcopy">                
+                <button onclick="$('#begrippenlijstcopy').hide()">Sluiten</button>
+                <div id="begrippenlijstcopycontent">
+                    
+                </div>
+            </div>
             <div id="uploadarea">
                 <button onclick="$('#uploadarea').hide()">Sluiten</button>
                 <h4>Antwoorden uploaden</h4>
                 <p>Ben je al eens eerder bezig geweest en heb je de antwoorden in een bestand opgeslagen? Laad dan het bestand met de eerdere antwoorden (dit heet normaalgesproken "privacyantwoorden.json"):
                     <div id="uploadinput">
                         <input type="file" name="jsonstring" id="jsonstring">
-                        <button id="upload">Laad antwoorden</button>
+                        <button id="upload">Upload antwoorden</button>
                     </div>
                 </p>
             </div>
