@@ -1,6 +1,36 @@
 /* ******************************
 General styling and overrule some Geonovum styles
 ****************************** */
+/*
+
+Copyright (c) 2015 Thijs Brentjens, thijs@brentjensgeoict.nl, for Geonovum, the Netherlands.
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+    * Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+    * Neither the name of Thijs Brentjens nor the names of
+      its contributors may be used to endorse or promote products derived
+      from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+POSSIBILITY OF SUCH DAMAGE.
+
+*/
 
 /*
 
@@ -19,6 +49,15 @@ hgroup {
     display: none;
 } 
 
+
+h5 {
+    font-style: italic;
+    font-weight: 400;
+}
+
+p {
+    margin: 1em 0;
+}
 
 #sidemenu {
     background-color: #007bb8;
@@ -76,6 +115,23 @@ hgroup {
 
 #uploadarea > button, #alert > button, #begrippenlijstcopy > button {
     float: right;
+}
+
+
+#descriptions {
+    border-top: 2px solid #007bb8;
+    margin-top: 30em;
+}
+
+
+#descriptions > div {
+    margin-bottom: 30em;
+}
+    
+
+#descriptions > div, #descriptions > h2, #descriptions > h3, #descriptions > h4 {
+    margin-left: 1em;
+    margin-right: 1em;
 }
 
 #content-header {
@@ -204,16 +260,17 @@ fieldset > div {
 }
 
 .extrainfo {
-    background-color: #007bb8;
-    color: white;
+    background-color: #ffffff;
+    color: #007bb8;
     display: none;
     font-size: 1em;
     margin: 0.5em;
     padding: 0.5em;
+    border: 1px dotted #007bb8;
 }
 
 .extrainfo a {
-    color: white;
+    color: #007bb8;
 }
 
 #voorvragen {
@@ -337,6 +394,10 @@ Steps styling
 Actions
 *************************** */
 
+.actions {
+    display: none;
+}
+
 #toolform .actions li  {
     display: inline;
 }
@@ -369,11 +430,11 @@ Actions
 }
 
 
-.checkboxIntro > button, .radioQuestion button {
+.checkboxIntro > button, .radioQuestion button, #descriptions button {
     background-color: #007bb8;
     color: white;
     font-size: 0.9em;
-    padding: 0.2em; 
+    padding: 0.3em; 
 }
 
 .invalidanswer {
@@ -396,6 +457,7 @@ results
 #graphs {    
     height: 250px;
     position: relative;
+    margin-bottom: 3em;
 }
 
 #graphs label {
@@ -516,7 +578,7 @@ PRINT OVERRIDES
         display: block !important;
     }
 
-    div.steps, div.actions {
+    div.steps, div.actions, div.descriptions {
         display: none  !important;
     }
     #toolform section {
