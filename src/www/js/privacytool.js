@@ -189,7 +189,7 @@ function scrollToElement(elementId) {
 
 function calculateScores() {
     // get all values
-    var parts=[{topic: "verwantschap", score:0, max: 7.5, graphlabel:"A"}, {topic: "aardgegevens", score:0, max: 17, graphlabel:"B"},{topic: "gevolgen", score:0, max: 7, graphlabel:"C"},{topic: "verkrijgen", score:0, max: 9.5, graphlabel:"D"},{topic: "waarborgen", score:0, max: 17, graphlabel:"E"}]    
+    var parts=[{topic: "verwantschap", score:0, max: 7.5, graphlabel:"A"}, {topic: "aardgegevens", score:0, max: 17, graphlabel:"B"},{topic: "gevolgen", score:0, max: 7, graphlabel:"C"},{topic: "verkrijgen", score:0, max: 6.5, graphlabel:"D"},{topic: "waarborgen", score:0, max: 17, graphlabel:"E"}]    
     var html="<h5>TESTEN</h5>";
     graphshtml=""
     $("#tussenresultaat").html("")
