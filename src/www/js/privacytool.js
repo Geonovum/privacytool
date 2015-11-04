@@ -29,7 +29,7 @@ POSSIBILITY OF SUCH DAMAGE.
 
 */
 /*
-    config & logic
+    config
 */
 var conditionalGoto = {};
 conditionalGoto["voorvragen-A"] = {"ja":  "#voorvragen-B"};
@@ -164,7 +164,10 @@ $(document).ready(function() {
 function startVoorvragen(){
     $('#voorvragen').show();
     // $('.actions').show();
-    return false;
+    // $('.actions').each(function() {
+    //         $(this).show()
+    //     });
+    return true;
 }
 
 // _prevElement = "";
@@ -302,10 +305,14 @@ function processAnswers (data) {
             $(this).show();
             // also: show the selected answer?
         });
-    $('#voorvragen').show()
+    startVoorvragen()
+    $('#voorvragen').show();
+    scrollToElement('voorvragen');
+    
     // calculatescores
     calculateScores();
     $('#uploadarea').toggle();
+
 }
 
 function showMessage(alertTitle, alertMessage) {

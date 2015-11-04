@@ -253,6 +253,7 @@ fieldset > div {
 
 .conditionalQuestion {
     display: none;
+    margin-top: 1em;
 }
 
 .radioQuestion label {
@@ -394,9 +395,11 @@ Steps styling
 Actions
 *************************** */
 
+/*
 .actions {
     display: none;
 }
+*/
 
 #toolform .actions li  {
     display: inline;
@@ -570,7 +573,7 @@ PRINT OVERRIDES
         line-height: 1.2em;
     }
 
-    a.btn, button, #sidemenu, #intakecopy {
+    a.btn, button, #sidemenu, #intakecopy, #descriptions {
         display: none !important;
     }
 
@@ -578,8 +581,8 @@ PRINT OVERRIDES
         display: block !important;
     }
 
-    div.steps, div.actions, div.descriptions {
-        display: none  !important;
+    div.steps, div.actions {
+        display: none !important;
     }
     #toolform section {
          min-height: auto;
