@@ -62,7 +62,7 @@ $(document).ready(function() {
                 loading: "Aan het laden ..."
             }
             , onStepChanged: function (evt, currentIndex) {
-                // focus to the tool                
+                // focus to the tool
             }
             , onStepChanging: function (event, currentIndex, newIndex) {
                 // if back, then don't validate
@@ -94,15 +94,15 @@ $(document).ready(function() {
                         }
                         prevName = name;
                     }
-                });           
-                
+                });
+
                 var errorMsg = "Vul alstublieft de ontbrekende vragen in, gemarkeerd met een rode omlijning."
                 var errorTitle = "Nog niet alle vragen zijn beantwoord";
                 /* var elemId=$("#toolform-p-" + currentIndex +" fieldset").prop("id");
                 // console.log(elemId)
                 if (elemId) scrollToElement(elemId); */
                 // $(window).scrollTop($("#toolform-p-" + currentIndex +" fieldset")[0].offset().top())
-                if (radiosNotAnswered.length > 0) {                    
+                if (radiosNotAnswered.length > 0) {
                     for (a in radiosNotAnswered) {
                         $("#toolform-p-" + currentIndex + " .inputarea input[name='"+radiosNotAnswered[a]+"']").parent().addClass("invalidanswer")
                     }
@@ -115,8 +115,8 @@ $(document).ready(function() {
                     }
                     showMessage(errorTitle, errorMsg);
                     return false;
-                } else {                    
-                    return true; 
+                } else {
+                    return true;
                 }
             }
         });
@@ -140,23 +140,34 @@ $(document).ready(function() {
             )
         });
 
-        $('#upload').on('click', function() {
-            var file_data = $('#jsonstring').prop('files')[0];   
-            var form_data = new FormData();                  
-            form_data.append('file', file_data);
-            $.ajax({
-                    url: 'upload.php',
-                    dataType: 'json', 
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    data: form_data,                         
-                    type: 'post',
-                    success: function(response){
-                        processAnswers(response);
-                    }
-            });
-        });
+        // $('#upload').on('click', function() {
+        //     // console.log($('#jsonstring'))
+        //     // console.log($('#jsonstring').prop('files'))
+        //     // console.log($('#jsonstring').prop('files')[0])
+        //     var file_data = $('#jsonstring').prop('files')[0];
+        //     var form_data = new FormData();
+        //     form_data.append('file', file_data);
+        //     $.ajax({
+        //             url: 'upload.php',
+        //             dataType: 'json',
+        //             cache: false,
+        //             contentType: false,
+        //             processData: false,
+        //             data: form_data,
+        //             type: 'post',
+        //             success: function(response){
+        //                 processAnswers(response);
+        //             }
+        //     });
+        // });
+
+
+
+        // bind 'myForm' and provide a simple callback function
+          $('#uploadForm').ajaxForm(function(response) {
+              // alert("Upload uitgevoerd");
+              processAnswers(response);
+          });
     }
 )
 
@@ -207,7 +218,7 @@ function updateIntake (answerId, answerText) {
         // first create the element
         $("#intakecopy").append("<div id='"+copyId+"'></div>");
 
-    }    
+    }
     var label = $("label[for='"+answerId+"']").html();
     $("#"+ copyId).html("<label>"+label+"</label><textarea disabled='disabled'>"+answerText+"</textarea>");
     if (answerText.length > 0 ) {
@@ -230,7 +241,7 @@ function scrollToElement(elementId, topMargin) {
 
 function calculateScores() {
     // get all values
-    var parts=[{topic: "verwantschap", score:0, max: 7.5, graphlabel:"A"}, {topic: "aardgegevens", score:0, max: 17, graphlabel:"B"},{topic: "gevolgen", score:0, max: 7, graphlabel:"C"},{topic: "verkrijgen", score:0, max: 6.5, graphlabel:"D"},{topic: "waarborgen", score:0, max: 17, graphlabel:"E"}]    
+    var parts=[{topic: "verwantschap", score:0, max: 7.5, graphlabel:"A"}, {topic: "aardgegevens", score:0, max: 17, graphlabel:"B"},{topic: "gevolgen", score:0, max: 7, graphlabel:"C"},{topic: "verkrijgen", score:0, max: 6.5, graphlabel:"D"},{topic: "waarborgen", score:0, max: 17, graphlabel:"E"}]
     var html="<h5>TESTEN</h5>";
     graphshtml=""
     $("#tussenresultaat").html("")
@@ -240,7 +251,7 @@ function calculateScores() {
         $("#" + scoreObj.topic+ " input:radio:checked").each(function() {
             var value = parseFloat($(this).val());
             score+=value;
-        });    
+        });
         scoreObj.score = score;
         scoreObj.percentage = score * 100 / scoreObj.max;
         html+="<p>"+scoreObj.topic+": " +score+ " (" + Math.round(scoreObj.percentage)+ "%)</p>";
@@ -248,7 +259,7 @@ function calculateScores() {
 
         // value in the score table/ description
         $("#score_"+scoreObj.topic + "> div.scorevalue").html(Math.round(scoreObj.percentage)+"%");
-        // which one to show / hide: 
+        // which one to show / hide:
         $("#score_"+scoreObj.topic + " > .scoreexplanation").hide()
         $("#score_"+scoreObj.topic + " > .scoreexplanation." + morethan50).show();
         graphshtml += "<label for='"+scoreObj.topic+"_graphscore' >"+scoreObj.graphlabel+ " (" + Math.round(scoreObj.percentage)+ "%)</label><div class='scorebar "+morethan50+"' id='"+scoreObj.topic+"_graphscore' style='height:"+scoreObj.percentage+"%'>&nbsp;</div>"
@@ -257,46 +268,90 @@ function calculateScores() {
     $("#graphs").html(graphshtml);
 }
 
+function preDownload() {
+    $('#downloadarea').toggle();
+}
+
 
 function writeScores() {
+    // first: display a box with info how to deal with the file, then
     var scoresState = new Array();
     $("input:radio:checked").each(function() {
         scoresState.push({"type":"radio","id":$(this).attr("name"), "value":$(this).val()}); // value? or name?
-    });  
+    });
     // also: intake questions
     $("#intakevragen textarea").each(function() {
         scoresState.push({"type":"textarea", "id":$(this).attr("name"), "value":$(this).val()}); // value? or name?
     });
-    // TODO: write to file
     var jsonAnswers = {"answers": scoresState}
     // if (console) console.log(JSON.stringify(jsonAnswers))
     // $.post("privacytoolanswers.php", JSON.stringify(jsonAnswers)); // url, data
-    // jquery file download 
-    $.fileDownload("privacytoolanswers.php", {
+    // jquery file download
+    // $.fileDownload("privacytoolanswers.php", {
+    //     // preparingMessageHtml: "We are preparing your report, please wait...",
+    //     // failMessageHtml: "There was a problem generating your report, please try again.",
+    //     httpMethod: "POST",
+    //     data: {"jsonstring":JSON.stringify(jsonAnswers)}
+    // });
+    var csvString = '';
+    for (k in scoresState) {
+        // make sure to escape some chars like quotes?
+        csvString+='"'+scoresState[k]["id"]+'","' +scoresState[k]["type"]+'","' + encodeURIComponent(scoresState[k]["value"]) + '"\n'
+    }
+    // TODO: escape
+    $.fileDownload("privacytoolanswerscsv.php", {
         // preparingMessageHtml: "We are preparing your report, please wait...",
         // failMessageHtml: "There was a problem generating your report, please try again.",
         httpMethod: "POST",
-        data: {"jsonstring":JSON.stringify(jsonAnswers)}
+        data: {"csv":encodeURIComponent(csvString)}
     });
 }
 
-
-
 function processAnswers (data) {
-    for (k in data) {
-        var answerlist = data[k]
-        // find the element
+    // console.log(data)
+    var success = false;
+    try {
+        var answerlist = data.split('\n')
         for (a in answerlist) {
-            var answer = answerlist[a]
-            if (answer["type"]=="radio") {
-                // okay, find the element with the apropriate value . We need to go into the answer id div to find the corresponding input                
-                $("#"+answer["id"] +" div.inputarea input[value='"+answer["value"]+"']").prop("checked", true).parent().removeClass("invalidanswer");
-            }
-            else if (answer["type"]=="textarea") {
+            var answer = answerlist[a].split('","')
+            var answerId = answer[0].split('"')[1]
+            var answerType = answer[1]
+            var answerValue= decodeURIComponent(answer[2]) // and remove the last char, a "
+            answerValue = answerValue.substring(0, answerValue.length - 1);
+            console.log(answerId)
+            console.log(answerType)
+            console.log(answerValue)
+            if (answerType=="radio") {
                 // okay, find the element with the apropriate value . We need to go into the answer id div to find the corresponding input
-                var textareaId=answer["id"] +"-text"
-                $("#"+textareaId).val(answer["value"]);
-                updateIntake(textareaId, answer["value"]);
+                $("#"+ answerId +" div.inputarea input[value='"+answerValue+"']").prop("checked", true).parent().removeClass("invalidanswer");
+            }
+            else if (answerType=="textarea") {
+                // okay, find the element with the apropriate value . We need to go into the answer id div to find the corresponding input
+                var textareaId= answerId +"-text"
+                $("#"+textareaId).val(answerValue);
+                updateIntake(textareaId, answerValue);
+            }
+        }
+    } catch (e) {
+        if (console) console.log(e)
+    }
+    if (!success) {
+    // if data is json, then this, otherwise
+        for (k in data) {
+            var answerlist = data[k]
+            // find the element
+            for (a in answerlist) {
+                var answer = answerlist[a]
+                if (answer["type"]=="radio") {
+                    // okay, find the element with the apropriate value . We need to go into the answer id div to find the corresponding input
+                    $("#"+answer["id"] +" div.inputarea input[value='"+answer["value"]+"']").prop("checked", true).parent().removeClass("invalidanswer");
+                }
+                else if (answer["type"]=="textarea") {
+                    // okay, find the element with the apropriate value . We need to go into the answer id div to find the corresponding input
+                    var textareaId=answer["id"] +"-text"
+                    $("#"+textareaId).val(answer["value"]);
+                    updateIntake(textareaId, answer["value"]);
+                }
             }
         }
     }
@@ -308,7 +363,7 @@ function processAnswers (data) {
     startVoorvragen()
     $('#voorvragen').show();
     scrollToElement('voorvragen');
-    
+
     // calculatescores
     calculateScores();
     $('#uploadarea').toggle();

@@ -47,7 +47,7 @@ html {
 
 hgroup {
     display: none;
-} 
+}
 
 
 h5 {
@@ -97,10 +97,10 @@ p {
     margin: 0.3em;
 }
 
-#uploadarea {
+#uploadarea, #downloadarea {
     display: none;
     border: 2px solid #007bb8;
-    background-color: white;    
+    background-color: white;
     box-shadow: 1em 1em 2em #888888;
     position: fixed;
     overflow: none;
@@ -109,12 +109,16 @@ p {
     width: 40%;
     left: 30%;
     height: auto;
-    
+
 }
 
 
-#uploadarea > button, #alert > button, #begrippenlijstcopy > button {
+#uploadarea > button, #downloadarea > button, #alert > button, #begrippenlijstcopy > button {
     float: right;
+}
+
+.tip {
+    
 }
 
 
@@ -127,7 +131,7 @@ p {
 #descriptions > div {
     margin-bottom: 30em;
 }
-    
+
 
 #descriptions > div, #descriptions > h2, #descriptions > h3, #descriptions > h4 {
     margin-left: 1em;
@@ -156,7 +160,7 @@ ol.alpha {
 }
 
 ol.upperalpha {
-    list-style-type: upper-alpha;   
+    list-style-type: upper-alpha;
 }
 
 ol.roman {
@@ -167,7 +171,7 @@ h2 {
     color: #007bb8;
 }
 
-/* 
+/*
 contributor list
 */
 
@@ -200,7 +204,7 @@ Styling of the questionaire and tabs
     min-height: 420px;
 }
 
-#toolform .steps li, #toolform .actions li, a.btn  {    
+#toolform .steps li, #toolform .actions li, a.btn  {
     padding: 0.5em 1em;
     margin-bottom: 0.5em;
     border-radius: 0.3em;
@@ -230,8 +234,8 @@ Styling of the questionaire and tabs
     color: #000000;
     display: none;
     margin-top: 0.5em;
-    padding: 0.5em;    
-} 
+    padding: 0.5em;
+}
 
 
 /* question divs */
@@ -293,7 +297,7 @@ textarea {
 #intakecopy, #begrippenlijstcopy {
     display: none;
     border: 2px solid #007bb8;
-    background-color: white;    
+    background-color: white;
     box-shadow: 1em 1em 2em #888888;
     padding: 1em;
     border-radius: 0.5em 0em 0em 0.5em;
@@ -321,7 +325,7 @@ textarea {
 }
 
 /* begrippenlijst */
-#toolform , #begrippenlijst {
+#toolform , #begrippenlijst, .tip {
     /* display: none; */
     background-color: #eeeeee;
 }
@@ -437,7 +441,7 @@ Actions
     background-color: #007bb8;
     color: white;
     font-size: 0.9em;
-    padding: 0.3em; 
+    padding: 0.3em;
 }
 
 .invalidanswer {
@@ -450,14 +454,14 @@ Actions
 results
 
 */
-#graphs, #graphsheader {    
+#graphs, #graphsheader {
     padding: 0em;
     width: 100%;
     font-size: 0.9em;
     max-width: 450px;
 }
 
-#graphs {    
+#graphs {
     height: 250px;
     position: relative;
     margin-bottom: 3em;
@@ -473,7 +477,7 @@ results
 }
 
 #graphsheader{
-    border-bottom: 1px solid #007bb8;    
+    border-bottom: 1px solid #007bb8;
     background: white none repeat scroll 0 0;
     float: left;
     height: 250px;
@@ -486,7 +490,7 @@ div.scorebar {
     /* float: left; */
     display: inline-block;
     position: absolute;
-    /* vertical-align: baseline;*/ 
+    /* vertical-align: baseline;*/
     bottom: 0px;
 }
 
@@ -561,7 +565,7 @@ div#scoreslist > div {
 }
 
 
-/* 
+/*
 
 PRINT OVERRIDES
 
@@ -594,4 +598,3 @@ PRINT OVERRIDES
 
     .explanation {box-shadow: none;}
 }
-
