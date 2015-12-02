@@ -48,12 +48,12 @@ Author: Geonovum, the Netherlands, 2015.
     <!--[if IE]>
     <link type="text/css" rel="stylesheet" media="all" href="http://www.geonovum.nl/sites/all/themes/geonovum/ie.css?e" />
     <![endif]-->
-    <link type="text/css" rel="stylesheet" media="all" href="css/privacytool.css?20151130" />
+    <link type="text/css" rel="stylesheet" media="all" href="css/privacytool.css?20151202_2" />
     <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="js/jquery.steps.js"></script>
     <script type="text/javascript" src="js/jquery.form.js"></script>
     <script type="text/javascript" src="js/jquery.fileDownload.js"></script>
-    <script type="text/javascript" src="js/privacytool.js?20151130_15"></script>
+    <script type="text/javascript" src="js/privacytool.js?20151202_10"></script>
 </head>
 
 <body>
@@ -1773,7 +1773,7 @@ indien behaalde score &gt; 50% -->
                     <div id="uploadarea">
                         <button onclick="$('#uploadarea').hide()">Sluiten</button>
                         <h4>Antwoorden uploaden</h4>
-                        <p>Ben je al eens eerder bezig geweest en heb je de antwoorden in een bestand opgeslagen? Laad dan het bestand met de eerdere antwoorden (dit heet normaalgesproken "privacyantwoorden.json"):
+                        <p>Ben je al eens eerder bezig geweest en heb je de antwoorden in een bestand opgeslagen? Laad dan het bestand met de eerdere antwoorden (dit heet normaalgesproken "privacyantwoorden.csv"):
                             <!--
                             <div id="uploadinput">
                                 <input type="file" name="jsonstring" id="jsonstring">
@@ -1782,7 +1782,6 @@ indien behaalde score &gt; 50% -->
                             <div id="uploadinput">
                               <form id="uploadForm" action="uploadcsv.php" method="post" enctype="multipart/form-data">
                                 <input type="file" name="file" id="jsonstring">
-                                <!-- <button id="upload">Upload antwoorden</button> -->
                                 <input type="submit" value="Upload antwoorden" />
                               </form>
                           </div>
@@ -1791,10 +1790,9 @@ indien behaalde score &gt; 50% -->
                     <div id="downloadarea">
                         <button onclick="$('#downloadarea').hide()">Sluiten</button>
                         <h4>Antwoorden opslaan</h4>
-                        <p>Tijdens het invullen kan je op elk gewenst moment de antwoorden die je gegeven hebt, downloaden in een bestand. Dit bestand kan je bijvoorbeeld opslaan op je eigen computer of doorsturen aan iemand anders. Geonovum slaat geen
-                            gegevens op. Het bestand kan je op een later moment weer uploaden via "Upload antwoorden". (Het bestand heet normaalgesproken "privacyantwoorden.json").</p>
+                        <p>Tijdens het invullen kan je op elk gewenst moment de antwoorden die je gegeven hebt, downloaden in een CSV-bestand. Dit bestand kan je bijvoorbeeld opslaan op je eigen computer of doorsturen aan iemand anders. Geonovum slaat geen gegevens op. Het bestand kan je op een later moment weer uploaden via "Upload antwoorden". </p>
                         <p>
-                            <em>Let op:</em> het bestand is alleen bedoeld om (tussen)resultaten op te slaan en eventueel later weer te laden / gebruiken. Pas het bestand daarom niet handmatig aan.
+                            <em>Let op:</em> het bestand is te openen met een spreadsheet programma als Microsoft Excel of LibreOffice Calc. Maar het bestand is alleen bedoeld om (tussen)resultaten op te slaan en eventueel later weer te laden / gebruiken. Pas het bestand <em>NIET</em> aan.
                         </p>
                         <p>
                             <button id="downloadscores" onclick="writeScores()">Download bestand met antwoorden</button>

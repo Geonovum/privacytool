@@ -52,6 +52,7 @@ $(document).ready(function() {
             // , transitionEffect: "slideLeft",
             // , stepsOrientation: "vertical"
             /* labels */
+            , enableFinishButton: false
             , labels: {
                 cancel: "Annuleren",
                 current: "huidige stap:",
@@ -122,23 +123,23 @@ $(document).ready(function() {
         });
 
         // FIXES for firefox printing
-        // TODO: also for textareas?
-        $(window).bind('beforeprint', function(){
-            $('fieldset').each(
-                function(item)
-                {
-                    $(this).replaceWith($('<div class="fieldset">' + this.innerHTML + '</div>'));
-                }
-            )
-        });
-        $(window).bind('afterprint', function(){
-            $('.fieldset').each(
-                function(item)
-                {
-                    $(this).replaceWith($('<fieldset>' + this.innerHTML + '</fieldset>'));
-                }
-            )
-        });
+        // For now: excluded
+        // $(window).bind('beforeprint', function(){
+        //     $('fieldset').each(
+        //         function(item)
+        //         {
+        //             $(this).replaceWith($('<div class="fieldset">' + $(this).html() + '</div>'));
+        //         }
+        //     )
+        // });
+        // $(window).bind('afterprint', function(){
+        //     $('.fieldset').each(
+        //         function(item)
+        //         {
+        //             $(this).replaceWith($('<fieldset>' + $(this).html() + '</fieldset>'));
+        //         }
+        //     )
+        // });
 
         // $('#upload').on('click', function() {
         //     // console.log($('#jsonstring'))
@@ -160,9 +161,6 @@ $(document).ready(function() {
         //             }
         //     });
         // });
-
-
-
         // bind 'myForm' and provide a simple callback function
           $('#uploadForm').ajaxForm(function(response) {
               // alert("Upload uitgevoerd");
@@ -241,7 +239,11 @@ function scrollToElement(elementId, topMargin) {
 
 function calculateScores() {
     // get all values
-    var parts=[{topic: "verwantschap", score:0, max: 7.5, graphlabel:"A"}, {topic: "aardgegevens", score:0, max: 17, graphlabel:"B"},{topic: "gevolgen", score:0, max: 7, graphlabel:"C"},{topic: "verkrijgen", score:0, max: 6.5, graphlabel:"D"},{topic: "waarborgen", score:0, max: 17, graphlabel:"E"}]
+    var parts=[{topic: "verwantschap", score:0, max: 7.5, graphlabel:"A"},
+        {topic: "aardgegevens", score:0, max: 17, graphlabel:"B"},
+        {topic: "gevolgen", score:0, max: 7, graphlabel:"C"},
+        {topic: "verkrijgen", score:0, max: 6.5, graphlabel:"D"},
+        {topic: "waarborgen", score:0, max: 17, graphlabel:"E"}]
     var html="<h5>TESTEN</h5>";
     graphshtml=""
     $("#tussenresultaat").html("")
@@ -250,6 +252,7 @@ function calculateScores() {
         var score = 0;
         $("#" + scoreObj.topic+ " input:radio:checked").each(function() {
             var value = parseFloat($(this).val());
+            // console.log(value)
             score+=value;
         });
         scoreObj.score = score;
@@ -266,6 +269,7 @@ function calculateScores() {
     }
     // $("#tussenresultaat").html(html);
     $("#graphs").html(graphshtml);
+    if (console) console.log("Scores updated")
 }
 
 function preDownload() {
@@ -294,9 +298,14 @@ function writeScores() {
     //     data: {"jsonstring":JSON.stringify(jsonAnswers)}
     // });
     var csvString = '';
+    var lineEnd = '"\r\n'
     for (k in scoresState) {
         // make sure to escape some chars like quotes?
-        csvString+='"'+scoresState[k]["id"]+'","' +scoresState[k]["type"]+'","' + encodeURIComponent(scoresState[k]["value"]) + '"\n'
+        // escape double quotes?
+        var answerValue = scoresState[k]["value"]
+        answerValue = answerValue.replace(/"/g, '""');
+        // answerValue = answerValue.replace(/\n/g, '"\n');
+        csvString+='"'+scoresState[k]["id"]+'","' +scoresState[k]["type"]+'","' + answerValue + lineEnd
     }
     // TODO: escape
     $.fileDownload("privacytoolanswerscsv.php", {
@@ -310,17 +319,22 @@ function writeScores() {
 function processAnswers (data) {
     // console.log(data)
     var success = false;
+    var rowNum = 0;
     try {
-        var answerlist = data.split('\n')
+        // first: replace the \n character again
+        // data = data.replace(/"\n/g, '\n');
+        var answerlist = data.split('"\r\n'); // TODO: how to split this one if it is " and then a line?"
         for (a in answerlist) {
+            rowNum+=1
             var answer = answerlist[a].split('","')
             var answerId = answer[0].split('"')[1]
             var answerType = answer[1]
-            var answerValue= decodeURIComponent(answer[2]) // and remove the last char, a "
-            answerValue = answerValue.substring(0, answerValue.length - 1);
-            console.log(answerId)
-            console.log(answerType)
-            console.log(answerValue)
+            // var answerValue= decodeURIComponent(answer[2]) // and remove the last char, a "
+            var answerValue = answer[2];
+            answerValue = answerValue.replace(/""/g, '"');
+            // answerValue = answerValue.replace(/"\n/g, '\n');
+            // replace the quotes again?
+            answerValue = answerValue.substring(0, answerValue.length);
             if (answerType=="radio") {
                 // okay, find the element with the apropriate value . We need to go into the answer id div to find the corresponding input
                 $("#"+ answerId +" div.inputarea input[value='"+answerValue+"']").prop("checked", true).parent().removeClass("invalidanswer");
@@ -333,10 +347,10 @@ function processAnswers (data) {
             }
         }
     } catch (e) {
-        if (console) console.log(e)
+        if (console) console.log("Rownum: " + rowNum + "\n" + e)
     }
     if (!success) {
-    // if data is json, then this, otherwise
+        // if data is json, then this, otherwise
         for (k in data) {
             var answerlist = data[k]
             // find the element

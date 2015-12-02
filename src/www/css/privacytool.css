@@ -118,7 +118,7 @@ p {
 }
 
 .tip {
-    
+
 }
 
 
@@ -577,7 +577,7 @@ PRINT OVERRIDES
         line-height: 1.2em;
     }
 
-    a.btn, button, #sidemenu, #intakecopy, #descriptions {
+    a.btn, button, #sidemenu, #intakecopy, #descriptions, #downloadarea, #uploadarea, #graphsheader, #graphs {
         display: none !important;
     }
 

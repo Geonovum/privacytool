@@ -5,7 +5,7 @@
 header("Content-type: application/json");
 
 try {
-   
+
     // Undefined | Multiple Files | $_FILES Corruption Attack
     // If this request falls under any of them, treat it invalid.
     if (
@@ -62,12 +62,12 @@ if (false === $ext = array_search(
         throw new RuntimeException('Failed to move uploaded file.');
     }
 */
-    
+
     $jsondataencoding = json_decode(file_get_contents($_FILES['file']['tmp_name']));
-    
+
     if (!$jsondataencoding) {
         throw new RuntimeException('No valid JSON data input.');
-    } 
+    }
     echo file_get_contents($_FILES['file']['tmp_name']);
     // echo 'File is uploaded successfully.';
 
