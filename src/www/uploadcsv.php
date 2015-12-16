@@ -77,10 +77,10 @@ if (false === $ext = array_search(
 
 }
 // $jsonData = $_POST["jsonstring"];
-//header("Content-type: application/json");
+// header("Content-type: application/json");
 // header("Content-Transfer-Encoding: Binary");
 // header("Content-Length:".filesize($attachment_location));
-// header("Content-Disposition: attachment; filename=privacytoolantwoorden.json");
+// header("Content-Disposition: attachment; filename=privacytoolantwoorden.csv");
 // do some validation...
 // $baseUri="http://nieuwsinkaart.nl/rdfgeo/";
 // echo $jsonData;

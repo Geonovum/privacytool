@@ -7,6 +7,6 @@ header("Content-type: application/json");
 // header("Content-Length:".filesize($attachment_location));
 header("Content-Disposition: attachment; filename=privacytoolantwoorden.json");
 // do some validation...
-# $baseUri="http://nieuwsinkaart.nl/rdfgeo/";
+// $baseUri="http://nieuwsinkaart.nl/rdfgeo/";
 echo $jsonData;
 ?>
