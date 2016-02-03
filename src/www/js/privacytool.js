@@ -324,6 +324,10 @@ function processAnswers (data) {
         // first: replace the \n character again
         // data = data.replace(/"\n/g, '\n');
         var answerlist = data.split('"\r\n'); // TODO: how to split this one if it is " and then a line?"
+        if (data.indexOf('"\r\n')==-1 && data.indexOf('"\n')>0) {
+            answerlist = data.split('"\n');
+        }
+        var processed = 0;
         for (a in answerlist) {
             rowNum+=1
             var answer = answerlist[a].split('","')
@@ -338,17 +342,27 @@ function processAnswers (data) {
             if (answerType=="radio") {
                 // okay, find the element with the apropriate value . We need to go into the answer id div to find the corresponding input
                 $("#"+ answerId +" div.inputarea input[value='"+answerValue+"']").prop("checked", true).parent().removeClass("invalidanswer");
+                if (answerValue.length > 0) {
+                    success = true;
+                    processed+=1;
+                }
             }
             else if (answerType=="textarea") {
                 // okay, find the element with the apropriate value . We need to go into the answer id div to find the corresponding input
                 var textareaId= answerId +"-text"
                 $("#"+textareaId).val(answerValue);
                 updateIntake(textareaId, answerValue);
+                if (answerValue.length > 0) {
+                    success = true;
+                    processed+=1;
+                }
             }
         }
     } catch (e) {
         if (console) console.log("Rownum: " + rowNum + "\n" + e)
     }
+
+
     if (!success) {
         // if data is json, then this, otherwise
         for (k in data) {
@@ -380,8 +394,11 @@ function processAnswers (data) {
 
     // calculatescores
     calculateScores();
-    $('#uploadarea').toggle();
-
+    if (processed == 0) {
+        alert("Het verwerken van de antwoorden is helaas niet gelukt. Staan er wel antwoorden in of is het bestand misschien tussentijds gewijzigd? Neem contact op met Geonovum als er een andere fout optreedt.")
+    } else {
+        $('#uploadarea').toggle();
+    }
 }
 
 function showMessage(alertTitle, alertMessage) {
