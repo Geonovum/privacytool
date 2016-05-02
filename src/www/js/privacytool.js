@@ -166,8 +166,19 @@ $(document).ready(function() {
               // alert("Upload uitgevoerd");
               processAnswers(response);
           });
-    }
-)
+
+         // welcomeMessage
+         if (!Cookies.get('readinvitation')) {
+            $('#welcomeMessage').fadeIn();
+         }
+
+         $("#shareIcons").jsSocials({
+             showLabel: false,
+             showCount: false,
+             shares: ["email", "twitter", "facebook", "linkedin"]
+         });
+
+    })
 
 
 function startVoorvragen(){

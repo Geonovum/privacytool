@@ -68,7 +68,18 @@ p {
     font-size: 0.9em;
 }
 
-#sidemenu a {
+#shareIcons a {
+    color: #ffffff;
+}
+
+.jssocials-share-logo {
+    font-size: 1.1em;    
+}
+.jssocials-share-link {
+    padding: 0.2em 0.3em;
+}
+
+#sidemenu a.btn-green {
     background: #97c000 none repeat scroll 0 0;
     border-radius: 5px;
     color: #2e2d2d;
@@ -102,7 +113,7 @@ p {
     margin: 0.3em;
 }
 
-#uploadarea, #downloadarea {
+#uploadarea, #downloadarea, #welcomeMessage {
     display: none;
     border: 2px solid #007bb8;
     background-color: white;
@@ -117,8 +128,16 @@ p {
 
 }
 
+#welcomeMessage {
+    background-color: #ffffff;
+    /*box-shadow: none;
+    left: 1em;
+    top: 1em;
+    width: 15%;*/
+    z-index: 2000;
+}
 
-#uploadarea > button, #downloadarea > button, #alert > button, #begrippenlijstcopy > button {
+.panel > button {
     float: right;
 }
 

@@ -45,18 +45,27 @@ Author: Geonovum, the Netherlands, 2015.
     <link type="text/css" rel="stylesheet" href="http://inspirelab.geonovum.nl/smartcities/css/geonovum3.css" media="all" />
     <link type="text/css" rel="stylesheet" href="http://inspirelab.geonovum.nl/smartcities/css/geonovum4.css" media="all" />
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/jssocials.css" />
+    <link rel="stylesheet" type="text/css" href="css/jssocials-theme-classic.css" />
+
     <!--[if IE]>
     <link type="text/css" rel="stylesheet" media="all" href="http://www.geonovum.nl/sites/all/themes/geonovum/ie.css?e" />
     <![endif]-->
     <link type="text/css" rel="stylesheet" media="all" href="css/privacytool.css?20160309" />
-    <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
-    <script type="text/javascript" src="js/jquery.steps.js"></script>
-    <script type="text/javascript" src="js/jquery.form.js"></script>
-    <script type="text/javascript" src="js/jquery.fileDownload.js"></script>
-    <script type="text/javascript" src="js/privacytool.js?20160309"></script>
+
 </head>
 
 <body>
+    <div id="fb-root"></div>
+<script>(function(d, s, id) {
+var js, fjs = d.getElementsByTagName(s)[0];
+if (d.getElementById(id)) return;
+js = d.createElement(s); js.id = id;
+js.src = "//connect.facebook.net/nl_NL/sdk.js#xfbml=1&version=v2.6";
+fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
     <div id="page" class="set10">
         <div id="page-inner" class="set10">
             <header role="banner" id="header">
@@ -1455,34 +1464,12 @@ indien behaalde score &gt; 50% -->
                     </div>
 
                     <!-- close page-inner, page -->
-                    <div id="sidemenu">
-                        <ul>
-                            <li>
-                                <button onclick="toggleBegrippenlijst()">Begrippenlijst</button>
-                            </li>
-                            <li>
-                                <button onclick="toggleIntake()" class="btn">Intake antwoorden</button>
-                            </li>
-                            <li>
-                                <button onclick="window.print()" class="btn">Printen</button>
-                            </li>
-                            <li>
-                                <button onclick="preDownload()" class="btn" title="Sla de antwoorden op in een bestand, om later opnieuw te gebruiken">Opslaan</button>
-                            </li>
-                            <li>
-                                <button onclick="$('#uploadarea').toggle()" class="btn" title="Laad antwoorden uit een bestand">Upload antwoorden</button>
-                            </li>
-                            <li>
-                                <a href="http://www.geonovum.nl/feedback-privacytool" target="_blank">Feedback geven</a>
-                            </li>
-                        </ul>
-                        <div id="tussenresultaat"></div>
-                    </div>
+
                     <div id="intakecopy">
                         <h3>Antwoorden van de intake vragen</h3>
                         <button onclick="$('#intakecopy').hide()">Sluiten</button>
                     </div>
-                    <div id="begrippenlijstcopy">
+                    <div id="begrippenlijstcopy" class="panel">
                         <button onclick="$('#begrippenlijstcopy').hide()">Sluiten</button>
                         <div id="begrippenlijstcopycontent">
 
@@ -1618,7 +1605,7 @@ indien behaalde score &gt; 50% -->
 
                             <!-- TODO: begrippenlijst openklappen bij keuze in zijmenu -->
                             <!-- TODO: wordt 1.1.3,  dus onderdeel van 1.1 (meer over Wbp) -->
-                            <div id="begrippenlijst">
+                            <div id="begrippenlijst" class="panel">
                                 <h3>Begrippenlijst</h3>
                                 <h4 id="persoonsgegeven">persoonsgegeven</h4>
                                 <p>elk gegeven betreffende een geïdentificeerde of identificeerbare persoon (artikel 1 Wbp). <a href="http://wetten.overheid.nl/BWBR0011468/geldigheidsdatum_27-09-2015#Hoofdstuk1_Artikel1">http://wetten.overheid.nl/BWBR0011468/geldigheidsdatum_27-09-2015#Hoofdstuk1_Artikel1</a>
@@ -1771,7 +1758,7 @@ indien behaalde score &gt; 50% -->
                             <button onclick="window.history.go(-1)">terug</button>
                         </div>
                     </div>
-                    <div id="uploadarea">
+                    <div id="uploadarea" class="panel">
                         <button onclick="$('#uploadarea').hide()">Sluiten</button>
                         <h4>Antwoorden uploaden</h4>
                         <p>Ben je al eens eerder bezig geweest en heb je de antwoorden in een bestand opgeslagen? Laad dan het bestand met de eerdere antwoorden (dit heet normaalgesproken "privacyantwoorden.csv"):
@@ -1788,7 +1775,7 @@ indien behaalde score &gt; 50% -->
                           </div>
                         </p>
                     </div>
-                    <div id="downloadarea">
+                    <div id="downloadarea" class="panel">
                         <button onclick="$('#downloadarea').hide()">Sluiten</button>
                         <h4>Antwoorden opslaan</h4>
                         <p>Tijdens het invullen kan je op elk gewenst moment de antwoorden die je gegeven hebt, downloaden in een CSV-bestand. Dit bestand kan je bijvoorbeeld opslaan op je eigen computer of doorsturen aan iemand anders. Geonovum slaat geen gegevens op. Het bestand kan je op een later moment weer uploaden via "Upload antwoorden". </p>
@@ -1804,15 +1791,63 @@ indien behaalde score &gt; 50% -->
                         </p>
 
                     </div>
-                    <div id="alert">
+                    <div id="alert" class="panel">
                         <button onclick="$('#alert').hide()">Sluiten</button>
                         <h4 id="alertTitle"></h4>
                         <div id="alertMessage">
                         </div>
                     </div>
+
+
                 </div>
             </div>
         </div>
-</body>
 
+        <div id="sidemenu">
+            <ul>
+                <li>
+                    <button onclick="toggleBegrippenlijst()">Begrippenlijst</button>
+                </li>
+                <li>
+                    <button onclick="toggleIntake()" class="btn">Intake antwoorden</button>
+                </li>
+                <li>
+                    <button onclick="window.print()" class="btn">Printen</button>
+                </li>
+                <li>
+                    <button onclick="preDownload()" class="btn" title="Sla de antwoorden op in een bestand, om later opnieuw te gebruiken">Opslaan</button>
+                </li>
+                <li>
+                    <button onclick="$('#uploadarea').toggle()" class="btn" title="Laad antwoorden uit een bestand">Upload antwoorden</button>
+                </li>
+                <li>
+                    <a href="http://www.geonovum.nl/feedback-privacytool" target="_blank" class="btn-green">Feedback geven</a>
+                </li>
+                <li><div id="shareIcons"></div>
+                </li>
+            </ul>
+            <div id="tussenresultaat"></div>
+        </div>
+        <div id="welcomeMessage" class="panel">
+            <button onclick="$('#welcomeMessage').hide()">Sluiten</button>
+            <h2>Meedenken voor versie 2.0 van deze Tool?</h2>
+            <p>
+        Wij zijn van plan na de zomer een nieuwe versie van deze tool te maken en in dat kader komen we graag in contact met gebruikers die hierbij willen helpen. We zijn nog aan het nadenken over de vorm, maar het zou goed kunnen zijn dat we een leuk oploopje organiseren om zo jullie tips an adviezen te vernemen. Uiteraard mag je ook reeds <a href="http://www.geonovum.nl/feedback-privacytool" target="_blank">via het antwoordformulier je feed back geven</a>. We horen graag van je.</p>
+
+        <p>Vriendelijke groet, Marc de Vries, adviseur Geonovum.</p>
+        <p><a onclick="$('#welcomeMessage').hide();" href="#" class="btn">Naar de tool</a>
+            <input type="checkbox" onchange="Cookies.set('readinvitation', this.checked);"/> dit bericht niet meer tonen
+        </p>
+        </div>
+
+
+<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="js/jquery.steps.js"></script>
+<script type="text/javascript" src="js/jquery.form.js"></script>
+<script type="text/javascript" src="js/jquery.fileDownload.js"></script>
+<script type="text/javascript" src="js/js.cookie.js"></script>
+<script type="text/javascript" src="js/privacytool.js?20160309"></script>
+<script type="text/javascript" src="js/jssocials.min.js"></script>
+
+</body>
 </html>
