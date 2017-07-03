@@ -167,10 +167,6 @@ $(document).ready(function() {
               processAnswers(response);
           });
 
-         // welcomeMessage
-         if (!Cookies.get('readinvitation')) {
-            $('#welcomeMessage').fadeIn();
-         }
     })
 
 
