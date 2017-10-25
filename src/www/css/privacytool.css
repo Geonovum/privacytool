@@ -40,7 +40,6 @@ blue: #007bb8;
 
 */
 
-
 html {
     font-size: 0.9em;
 }
@@ -73,7 +72,7 @@ p {
 }
 
 .jssocials-share-logo {
-    font-size: 1.1em;    
+    font-size: 1.1em;
 }
 .jssocials-share-link {
     padding: 0.2em 0.3em;
@@ -263,12 +262,15 @@ Styling of the questionaire and tabs
 
 
 /* question divs */
-fieldset {
+.questions {
     background-color: #ffffff;
     margin-top: 1em;
+    border: 1px solid #dddddd;
 }
-fieldset > div {
+.questions > div {
     padding-bottom: 1.5em;
+    padding-left: 1em;
+    padding-right: 1em;
 }
 
 .radioQuestion .inputarea {
@@ -473,6 +475,22 @@ Actions
 }
 
 
+a.btn-small {
+  font-size: 0.8em;
+  padding: 0.2em 0.4em;
+  margin-bottom: 0.2em;
+  float: right;
+  margin-top: 1em;
+  margin-right: 15px;
+  background-color: #888888;
+}
+
+.copyAnswer {
+  display: none;
+  font-weight: bold;
+  margin-left: 1em;
+}
+
 /*
 
 results
@@ -589,6 +607,22 @@ div#scoreslist > div {
 }
 
 
+.usernote, .usernotePrint {
+  display: none;
+}
+
+.usernotePrint {
+  padding-left: 1em;
+}
+
+.usernotePrint p {
+  border: 1px dash grey;
+}
+
+.usernotePrint > h6 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
 /*
 
 PRINT OVERRIDES
@@ -612,13 +646,24 @@ PRINT OVERRIDES
     div.steps, div.actions {
         display: none !important;
     }
+
     #toolform section {
          min-height: auto;
     }
+
+    .radioQuestion.score input, .radioQuestion.score label { display: none; }
+
     .radioQuestion { padding-bottom: 2em; }
+
+    .copyAnswer{display: block;}
     .inputarea textarea {width:90%}
 
     .extrainfo {display: none;}
 
     .explanation {box-shadow: none;}
+
+    .usernote {display: block;}
+    .usernote textarea {display: none;}
+
+    .usernotePrint {display: block;}
 }

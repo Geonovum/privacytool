@@ -16,3 +16,30 @@ De broncode bestaat uit:
 Inhoudelijke feedback kan gegeven worden via: [de website van Geonovumm](http://www.geonovum.nl/feedback-privacytool).
 
 Bugs en technische suggesties kunnen via de [GitHub issues](https://github.com/Geonovum/privacytool/issues) gemeld worden.
+
+## Opslaan van antwoorden in CSV bestand
+### CSV formaat
+Voor het (tussentijds) opslaan van de input van de gebruiker (antwoorden en notities) is een eenvoudig CSV formaat in gebruik:
+
+```
+{HTML id van formulier veld},{type form veld},{waarde van form veld}
+```
+
+Voorbeeld gegevens:
+
+```
+"voorvragen-A","radio","ja"
+"voorvragen-B","radio","ja"
+...
+"voorvragen-H","radio","ja"
+"intakevragen-A","textarea","lorum ipsum etc"
+"intakevragen-B","textarea",".. dolor sit amet, consectetur adipiscing elit ..."
+...
+"intakevragen-F","textarea","...mollit anim id est laborum."
+"onverenigbaarheid-1-notes","textarea","lorum ipsum etc"
+"onverenigbaarheid-2-notes","textarea",""
+```
+Met Javascript functies worden de gegeven antwoorden in het CSV formaat gezet. Via een PHP script worden deze CSV data in een bestand gezet, on-the-fly. Er vindt geen opslag op de server plaats van deze data of het bestand.
+
+### Verwerking upload van antwoorden
+Bij uploaden van CSV geformatteerde antwoorden worden de waardes via Javascript weer geladen in het formulier. Let op dat de inputvelden en ids/names een vast patroon gebruiken. Zie de HTML code voor het HTML patroon bij de form input velden dat nodig is voor goede verwerking.

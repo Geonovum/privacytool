@@ -1,6 +1,6 @@
 /*
 
-Copyright (c) 2015 Thijs Brentjens, thijs@brentjensgeoict.nl, for Geonovum, the Netherlands.
+Copyright (c) 2015-2017 Thijs Brentjens, thijs@brentjensgeoict.nl, for Geonovum, the Netherlands.
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -63,7 +63,7 @@ $(document).ready(function() {
                 loading: "Aan het laden ..."
             }
             , onStepChanged: function (evt, currentIndex) {
-                // focus to the tool
+                // stub
             }
             , onStepChanging: function (event, currentIndex, newIndex) {
                 // if back, then don't validate
@@ -99,15 +99,10 @@ $(document).ready(function() {
 
                 var errorMsg = "Vul alstublieft de ontbrekende vragen in, gemarkeerd met een rode omlijning."
                 var errorTitle = "Nog niet alle vragen zijn beantwoord";
-                /* var elemId=$("#toolform-p-" + currentIndex +" fieldset").prop("id");
-                // console.log(elemId)
-                if (elemId) scrollToElement(elemId); */
-                // $(window).scrollTop($("#toolform-p-" + currentIndex +" fieldset")[0].offset().top())
                 if (radiosNotAnswered.length > 0) {
                     for (a in radiosNotAnswered) {
                         $("#toolform-p-" + currentIndex + " .inputarea input[name='"+radiosNotAnswered[a]+"']").parent().addClass("invalidanswer")
                     }
-                    // $(window).scrollTop($("#toolform-p-" + currentIndex +" fieldset").offset().top())
                     showMessage(errorTitle, errorMsg);
                     return false;
                 } else if (textareaNotAnswered.length > 0) {
@@ -121,109 +116,31 @@ $(document).ready(function() {
                 }
             }
         });
-
-        // FIXES for firefox printing
-        // For now: excluded
-        // $(window).bind('beforeprint', function(){
-        //     $('fieldset').each(
-        //         function(item)
-        //         {
-        //             $(this).replaceWith($('<div class="fieldset">' + $(this).html() + '</div>'));
-        //         }
-        //     )
-        // });
-        // $(window).bind('afterprint', function(){
-        //     $('.fieldset').each(
-        //         function(item)
-        //         {
-        //             $(this).replaceWith($('<fieldset>' + $(this).html() + '</fieldset>'));
-        //         }
-        //     )
-        // });
-
-        // $('#upload').on('click', function() {
-        //     // console.log($('#jsonstring'))
-        //     // console.log($('#jsonstring').prop('files'))
-        //     // console.log($('#jsonstring').prop('files')[0])
-        //     var file_data = $('#jsonstring').prop('files')[0];
-        //     var form_data = new FormData();
-        //     form_data.append('file', file_data);
-        //     $.ajax({
-        //             url: 'upload.php',
-        //             dataType: 'json',
-        //             cache: false,
-        //             contentType: false,
-        //             processData: false,
-        //             data: form_data,
-        //             type: 'post',
-        //             success: function(response){
-        //                 processAnswers(response);
-        //             }
-        //     });
-        // });
-        // bind 'myForm' and provide a simple callback function
+        // bind the form and provide a simple callback function
           $('#uploadForm').ajaxForm(function(response) {
-              // alert("Upload uitgevoerd");
               processAnswers(response);
           });
+
+          // a function to create an extra element that keeps (invisible unless printing) a copy of the answer in a div
+          $(".radioQuestion.score input[type=radio]").change(function() {
+              // the label?
+              var answerText = $("label[for='"+$(this).attr('id')+"']").text();
+              // create an element that saves the answer as a span
+              // append the element with an extra ID?
+              var copyId = $(this).attr('name')+"_copy";
+              if ($("#"+ copyId).length == 0) {
+                  // first create the element if it does not exist yet
+                  var parentElem = $(this).parents(".checkboxIntro").append("<span class='copyAnswer' id='"+copyId+"'></span>");
+              }
+              $("#"+copyId).html(answerText);
+          });
+
+
 
     })
 
 
-function startVoorvragen(){
-    $('#voorvragen').show();
-    // $('.actions').show();
-    // $('.actions').each(function() {
-    //         $(this).show()
-    //     });
-    return true;
-}
-
-// _prevElement = "";
-function checkRadioQuestion(answerId, radioName, radioValue) {
-    $(".explanation."+radioName).hide();
-    $(".explanation."+radioName + "." + radioValue).show();
-    // now check if there is a conditional question to show
-
-    // hide explanation for non-answers
-    // show explanation
-    // showExplanation(answerId)
-    // var topMargin = 0;
-    try {
-        if (conditionalGoto[radioName][radioValue]) {
-            // console.log(conditionalGoto[radioName][radioValue])
-
-            $(conditionalGoto[radioName][radioValue]).show();
-            // scroll to the previous element?
-            /* if (_prevElement.length > 0) scrollToElement(_prevElement, topMargin);
-            _prevElement = conditionalGoto[radioName][radioValue];
-            */
-        }
-    } catch (e) {
-        if (console) console.log(e)
-    }
-    // check
-    $("#"+answerId).parent().removeClass("invalidanswer");
-    // calculate scores
-    calculateScores()
-}
-
-function updateIntake (answerId, answerText) {
-    // Update a list with the intake information, as a copy under the Intake vragen answers
-    var suffix="_copy";
-    var copyId = answerId+suffix;
-    if ($("#"+ copyId).length == 0) {
-        // first create the element
-        $("#intakecopy").append("<div id='"+copyId+"'></div>");
-
-    }
-    var label = $("label[for='"+answerId+"']").html();
-    $("#"+ copyId).html("<label>"+label+"</label><textarea disabled='disabled'>"+answerText+"</textarea>");
-    if (answerText.length > 0 ) {
-        $("#"+answerId).removeClass("invalidanswer");
-    }
-}
-
+// some GUI functions
 function toggleExtraInfo(elem) {
     $(elem).siblings(".extrainfo").toggle();
 }
@@ -232,22 +149,94 @@ function toggleIntake() {
     $("#intakecopy").toggle();
 }
 
+function toggleUserNotes(elem) {
+    $(elem).siblings(".usernote").toggle();
+}
+
 function scrollToElement(elementId, topMargin) {
     if (!topMargin) topMargin = 0;
     $(window).scrollTop($("#" + elementId).offset().top - topMargin)
 }
 
+function showMessage(alertTitle, alertMessage) {
+    $("#alertTitle").html(alertTitle)
+    $("#alertMessage").html(alertMessage)
+    $("#alert").show();
+}
+
+function toggleBegrippenlijst() {
+    var html = $("#begrippenlijst").html();
+    $("#begrippenlijstcopycontent").html(html);
+    $("#begrippenlijstcopy").show();
+}
+
+function startVoorvragen(){
+    $('#voorvragen').show();
+    return true;
+}
+
+function preDownload() {
+    $('#downloadarea').toggle();
+}
+
+// processing of answers in the form
+// check for conditional questions on a Radio question
+function checkRadioQuestion(answerId, radioName, radioValue) {
+    $(".explanation."+radioName).hide();
+    $(".explanation."+radioName + "." + radioValue).show();
+    // now check if there is a conditional question to show
+    // hide explanation for non-answers
+    try {
+        if (conditionalGoto[radioName][radioValue]) {
+            $(conditionalGoto[radioName][radioValue]).show();
+        }
+    } catch (e) {
+        if (console) console.log(e)
+    }
+    $("#"+answerId).parent().removeClass("invalidanswer");
+    calculateScores()
+}
+
+// Intake questions have copies of the answers that is shown via the button ("Intake antwoorden")
+function updateIntake (answerId, answerText) {
+    // Update a list with the intake information, as a copy under the Intake vragen answers
+    var suffix="_copy";
+    var copyId = answerId+suffix;
+    if ($("#"+ copyId).length == 0) {
+        // first create the element if it does not exist yet
+        $("#intakecopy").append("<div id='"+copyId+"'></div>");
+    }
+    var label = $("label[for='"+answerId+"']").html();
+    $("#"+ copyId).html("<label>"+label+"</label><textarea disabled='disabled'>"+answerText+"</textarea>");
+    if (answerText.length > 0 ) {
+        $("#"+answerId).removeClass("invalidanswer");
+    }
+}
+
+
+// Usernotes have copies of the values in a div, instead of a textarea, because printing is hard otherwise.
+// for the
+function updateUserNotes(elemId, noteValue) {
+  // make a copy of the text to a div, which prints nicer in browsers
+  var newVal ="";
+  if (noteValue.length > 0) {
+    newVal = "<h6>Overweging:</h6><p>"+noteValue+"</p>";
+  }
+  $("#"+elemId).siblings(".usernotePrint").html(newVal);
+}
+
+// when user input is finished, calculate alle scores
 function calculateScores() {
-    // get all values
-    var parts=[{topic: "verwantschap", score:0, max: 7.5, graphlabel:"A"},
-        {topic: "aardgegevens", score:0, max: 17, graphlabel:"B"},
-        {topic: "gevolgen", score:0, max: 7, graphlabel:"C"},
-        {topic: "verkrijgen", score:0, max: 6.5, graphlabel:"D"},
-        {topic: "waarborgen", score:0, max: 17, graphlabel:"E"}]
-    var html="<h5>TESTEN</h5>";
-    graphshtml=""
-    $("#tussenresultaat").html("")
-    for (k in parts) {
+      // get all values
+      var parts=[{topic: "verwantschap", score:0, max: 7.5, graphlabel:"A"},
+          {topic: "aardgegevens", score:0, max: 17, graphlabel:"B"},
+          {topic: "gevolgen", score:0, max: 7, graphlabel:"C"},
+          {topic: "verkrijgen", score:0, max: 6.5, graphlabel:"D"},
+          {topic: "waarborgen", score:0, max: 17, graphlabel:"E"}]
+      var html="<h5>TESTEN</h5>";
+      graphshtml=""
+      $("#tussenresultaat").html("")
+      for (k in parts) {
         var scoreObj = parts[k]
         var score = 0;
         $("#" + scoreObj.topic+ " input:radio:checked").each(function() {
@@ -267,16 +256,15 @@ function calculateScores() {
         $("#score_"+scoreObj.topic + " > .scoreexplanation." + morethan50).show();
         graphshtml += "<label for='"+scoreObj.topic+"_graphscore' >"+scoreObj.graphlabel+ " (" + Math.round(scoreObj.percentage)+ "%)</label><div class='scorebar "+morethan50+"' id='"+scoreObj.topic+"_graphscore' style='height:"+scoreObj.percentage+"%'>&nbsp;</div>"
     }
-    // $("#tussenresultaat").html(html);
     $("#graphs").html(graphshtml);
     if (console) console.log("Scores updated")
 }
 
-function preDownload() {
-    $('#downloadarea').toggle();
-}
 
 
+
+
+// functions for reading/writing answers to a file
 function writeScores() {
     // first: display a box with info how to deal with the file, then
     var scoresState = new Array();
@@ -287,7 +275,12 @@ function writeScores() {
     $("#intakevragen textarea").each(function() {
         scoresState.push({"type":"textarea", "id":$(this).attr("name"), "value":$(this).val()}); // value? or name?
     });
+    $(".usernote textarea").each(function() {
+        scoresState.push({"type":"textarea", "id":$(this).attr("name"), "value":$(this).val()}); // value? or name?
+    });
     var jsonAnswers = {"answers": scoresState}
+
+    // downloading in JSON format is disabled
     // if (console) console.log(JSON.stringify(jsonAnswers))
     // $.post("privacytoolanswers.php", JSON.stringify(jsonAnswers)); // url, data
     // jquery file download
@@ -300,24 +293,24 @@ function writeScores() {
     var csvString = '';
     var lineEnd = '"\r\n'
     for (k in scoresState) {
-        // make sure to escape some chars like quotes?
-        // escape double quotes?
+        // make sure to escape some chars like double quotes
+        // escape double quotes
         var answerValue = scoresState[k]["value"]
         answerValue = answerValue.replace(/"/g, '""');
-        // answerValue = answerValue.replace(/\n/g, '"\n');
         csvString+='"'+scoresState[k]["id"]+'","' +scoresState[k]["type"]+'","' + answerValue + lineEnd
     }
-    // TODO: escape
+    // Just dump the data to afile, using a PHP script
     $.fileDownload("privacytoolanswerscsv.php", {
-        // preparingMessageHtml: "We are preparing your report, please wait...",
-        // failMessageHtml: "There was a problem generating your report, please try again.",
         httpMethod: "POST",
         data: {"csv":encodeURIComponent(csvString)}
     });
 }
 
+
+// if a file is uploaded with answers, try to set all values from that file in the appropriate form fields
+// the answers are in a CSV format: {id},{type of form element},{value}
+// there has been a JSON formatted file as well for a while, so keep this code for backwards compatibility
 function processAnswers (data) {
-    // console.log(data)
     var success = false;
     var rowNum = 0;
     try {
@@ -337,21 +330,39 @@ function processAnswers (data) {
             var answerValue = answer[2];
             answerValue = answerValue.replace(/""/g, '"');
             // answerValue = answerValue.replace(/"\n/g, '\n');
-            // replace the quotes again?
             answerValue = answerValue.substring(0, answerValue.length);
             if (answerType=="radio") {
-                // okay, find the element with the apropriate value . We need to go into the answer id div to find the corresponding input
+                // find the element with the apropriate value . We need to go into the answer id div to find the corresponding input
                 $("#"+ answerId +" div.inputarea input[value='"+answerValue+"']").prop("checked", true).parent().removeClass("invalidanswer");
                 if (answerValue.length > 0) {
                     success = true;
                     processed+=1;
                 }
+
+                var radioElem = $("#"+ answerId +" div.inputarea input[value='"+answerValue+"']");
+                var answerText = $("label[for='"+$(radioElem).attr('id')+"']").text();
+                // create an element that saves the answer as a span
+                // append the element with an extra ID?
+                var copyId = $(radioElem).attr('name')+"_copy";
+                if ($("#"+ copyId).length == 0) {
+                    // first create the element if it does not exist yet
+                    var parentElem = $(radioElem).parents(".checkboxIntro").append("<span class='copyAnswer' id='"+copyId+"'></span>");
+                }
+                $("#"+copyId).html(answerText);
+
+
             }
             else if (answerType=="textarea") {
-                // okay, find the element with the apropriate value . We need to go into the answer id div to find the corresponding input
-                var textareaId= answerId +"-text"
+                // find the element with the apropriate value . We need to go into the answer id div to find the corresponding input
+                var textareaId= answerId +"-text";
                 $("#"+textareaId).val(answerValue);
-                updateIntake(textareaId, answerValue);
+                if (textareaId.indexOf("intakevragen")>=0) {
+                  updateIntake(textareaId, answerValue);
+                }
+                if (textareaId.indexOf("-notes")>=0) {
+                  // var elem = $("#"+textareaId);
+                  updateUserNotes(textareaId, answerValue);
+                }
                 if (answerValue.length > 0) {
                     success = true;
                     processed+=1;
@@ -362,7 +373,7 @@ function processAnswers (data) {
         if (console) console.log("Rownum: " + rowNum + "\n" + e)
     }
 
-
+    // for backwards compatibility: read from a JSON file, instead of CSV
     if (!success) {
         // if data is json, then this, otherwise
         for (k in data) {
@@ -378,7 +389,9 @@ function processAnswers (data) {
                     // okay, find the element with the apropriate value . We need to go into the answer id div to find the corresponding input
                     var textareaId=answer["id"] +"-text"
                     $("#"+textareaId).val(answer["value"]);
-                    updateIntake(textareaId, answer["value"]);
+                    if (textareaId.indexOf("intakevragen")>=0) {
+                      updateIntake(textareaId, answer["value"]);
+                    }
                 }
             }
         }
@@ -386,29 +399,80 @@ function processAnswers (data) {
     // show all answers of the voorvragen questions
     $("#voorvragen>div").each(function(){
             $(this).show();
-            // also: show the selected answer?
-        });
+    });
     startVoorvragen()
     $('#voorvragen').show();
     scrollToElement('voorvragen');
 
-    // calculatescores
     calculateScores();
     if (processed == 0) {
-        alert("Het verwerken van de antwoorden is helaas niet gelukt. Staan er wel antwoorden in of is het bestand misschien tussentijds gewijzigd? Neem contact op met Geonovum als er een andere fout optreedt.")
+        alert("Het verwerken van de antwoorden is helaas niet gelukt. Staan er wel antwoorden in of is het bestand misschien tussentijds gewijzigd? Neem contact op met de beheerder als er een andere fout optreedt.")
     } else {
         $('#uploadarea').toggle();
     }
 }
 
-function showMessage(alertTitle, alertMessage) {
-    $("#alertTitle").html(alertTitle)
-    $("#alertMessage").html(alertMessage)
-    $("#alert").show();
+
+function simulatePrintMedia () {
+      // to copy to a word document?
+      $(".extrainfo").hide();
+      $(".usernote textarea").hide();
+      $("a.btn, button").hide();
+
+      $("html").css("font-size","0.7em");
+      $("html").css("line-height","1.2em");
+
+      $(".radioQuestion.score input").hide();
+      $(".radioQuestion.score label").hide();
+
+      $(".usernote").show();
+      $(".usernotePrint").show();
+      $(".copyAnswer").show();
 }
 
-function toggleBegrippenlijst() {
-    var html = $("#begrippenlijst").html();
-    $("#begrippenlijstcopycontent").html(html);
-    $("#begrippenlijstcopy").show();
+// inverse:
+// TODO: find out what to do with currently hidden/shown elements
+function undoSimulatePrintMedia() {
+  // just toggle everything???
+  //font-size: 0.9em;
+  //line-height: 1.2em;
+  $("html").css("font-size","0.9em");
+  $("html").css("line-height","1.2em");
+  // $(".extrainfo").show(); // don't show this by default
+  $(".usernote").hide();
+  // TODO: if there is content, show it?
+  $(".usernote textarea").show();
+  $(".usernotePrint").hide();
+
+  $(".copyAnswer").hide();
+  $(".radioQuestion.score input").show();
+  $(".radioQuestion.score label").show();
+  $("a.btn, button").show();
+
+}
+
+// get the outerhtml
+function downloadAsHtml() {
+  simulatePrintMedia()
+  // and / or use .css() of jquery to get some styling. And remove some elements?
+  // and copy this css to the basic html?
+  var html = "";
+  $("section").each(
+    function(){
+      html+=$(this).html()
+    }
+  )
+  // TODO: include CSS?
+  
+  // also:
+  // change some of the HTML?
+  // TODO: construct the report, using all questions and answers
+  // need to simlate printing or copy values
+  // include the results
+  // create an HTML structure for that, with copies of input values.
+  $.fileDownload("downloadhtml.php", {
+      httpMethod: "POST",
+      data: {"html":encodeURIComponent(html)}
+  });
+  undoSimulatePrintMedia()
 }
