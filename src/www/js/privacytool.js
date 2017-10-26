@@ -122,21 +122,26 @@ $(document).ready(function() {
           });
 
           // a function to create an extra element that keeps (invisible unless printing) a copy of the answer in a div
-          $(".radioQuestion.score input[type=radio]").change(function() {
-              // the label?
-              var answerText = $("label[for='"+$(this).attr('id')+"']").text();
-              // create an element that saves the answer as a span
-              // append the element with an extra ID?
-              var copyId = $(this).attr('name')+"_copy";
-              if ($("#"+ copyId).length == 0) {
-                  // first create the element if it does not exist yet
-                  var parentElem = $(this).parents(".checkboxIntro").append("<span class='copyAnswer' id='"+copyId+"'></span>");
-              }
-              $("#"+copyId).html(answerText);
+          function copyRadioAnswer(elem){
+            // the label?
+            var answerText = $("label[for='"+$(elem).attr('id')+"']").text();
+            // create an element that saves the answer as a span
+            // append the element with an extra ID?
+            var copyId = $(elem).attr('name')+"_copy";
+            if ($("#"+ copyId).length == 0) {
+                // first create the element if it does not exist yet
+                var parentElem = $(elem).parents(".checkboxIntro").append("<span class='copyAnswer' id='"+copyId+"'></span>");
+            }
+            $("#"+copyId).html(answerText);
+          }
+
+          $("#voorvragen .radioQuestion input[type=radio]").change(function() {
+              copyRadioAnswer(this);
           });
 
-
-
+          $(".radioQuestion.score input[type=radio]").change(function() {
+              copyRadioAnswer(this);
+          });
     })
 
 
@@ -413,15 +418,15 @@ function processAnswers (data) {
 }
 
 
-function simulatePrintMedia () {
-      // to copy to a word document?
+// show and hide the appropriate elements for creating a report
+function prepareForReport () {
+      // to copy to an HTML document
       $(".extrainfo").hide();
       $(".usernote textarea").hide();
       $("a.btn, button").hide();
 
-      $("html").css("font-size","0.7em");
-      $("html").css("line-height","1.2em");
-
+      $("#voorvragen .radioQuestion input").hide();
+      $("#voorvragen .radioQuestion label").hide();
       $(".radioQuestion.score input").hide();
       $(".radioQuestion.score label").hide();
 
@@ -430,40 +435,37 @@ function simulatePrintMedia () {
       $(".copyAnswer").show();
 }
 
-// inverse:
-// TODO: find out what to do with currently hidden/shown elements
-function undoSimulatePrintMedia() {
-  // just toggle everything???
-  //font-size: 0.9em;
-  //line-height: 1.2em;
-  $("html").css("font-size","0.9em");
-  $("html").css("line-height","1.2em");
+// inverse: hide
+// TODO: find out what to do with currently hidden/shown elements. But this is in fact not very important
+function undoPrepareForReport() {
   // $(".extrainfo").show(); // don't show this by default
   $(".usernote").hide();
-  // TODO: if there is content, show it?
   $(".usernote textarea").show();
   $(".usernotePrint").hide();
 
   $(".copyAnswer").hide();
   $(".radioQuestion.score input").show();
   $(".radioQuestion.score label").show();
-  $("a.btn, button").show();
 
+  $("#voorvragen .radioQuestion input").show();
+  $("#voorvragen .radioQuestion label").show();
+
+  $("a.btn, button").show();
 }
 
 // get the outerhtml
 function downloadAsHtml() {
-  simulatePrintMedia()
+  prepareForReport()
   // and / or use .css() of jquery to get some styling. And remove some elements?
   // and copy this css to the basic html?
   var html = "";
-  $("section").each(
+  $(".htmlreport").each(
     function(){
       html+=$(this).html()
     }
   )
   // TODO: include CSS?
-  
+
   // also:
   // change some of the HTML?
   // TODO: construct the report, using all questions and answers
@@ -474,5 +476,5 @@ function downloadAsHtml() {
       httpMethod: "POST",
       data: {"html":encodeURIComponent(html)}
   });
-  undoSimulatePrintMedia()
+  undoPrepareForReport()
 }

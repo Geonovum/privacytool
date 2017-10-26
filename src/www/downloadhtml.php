@@ -2,7 +2,7 @@
 // return the uploaded CSV string as a file, for download by others
 $data = urldecode($_POST["html"]);
 header("Content-type: text/html");
-header("Content-Disposition: attachment; filename=privacytool.html");
+header("Content-Disposition: attachment; filename=privacytool_rapport.html");
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -38,7 +38,7 @@ POSSIBILITY OF SUCH DAMAGE.
 
 <!-- License information for the text of the tool:
 The text of the tool is licensec under a CC BY 4.0 license, http://creativecommons.org/licenses/by/4.0/
-Author: Geonovum, the Netherlands, 2015.
+Author: Geonovum, the Netherlands, 2015-2017.
 -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="nl" lang="nl" dir="ltr">
 
@@ -46,22 +46,20 @@ Author: Geonovum, the Netherlands, 2015.
     <title>Privacy Tool Oude Persoonsgegevens Nieuwe Doelen</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="shortcut icon" href="http://www.geonovum.nl/sites/default/files/geonovum_favicon.ico" type="image/x-icon" />
-<!--
-    <link type="text/css" rel="stylesheet" href="http://inspirelab.geonovum.nl/smartcities/css/geonovum1.css" media="all" />
-    <link type="text/css" rel="stylesheet" href="http://inspirelab.geonovum.nl/smartcities/css/geonovum2.css" media="all" />
-    <link type="text/css" rel="stylesheet" href="http://inspirelab.geonovum.nl/smartcities/css/geonovum3.css" media="all" />
-    <link type="text/css" rel="stylesheet" href="http://inspirelab.geonovum.nl/smartcities/css/geonovum4.css" media="all" />
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css"> -->
+    <style type="text/css">
+    <?php
 
-    <!--[if IE]>
-    <link type="text/css" rel="stylesheet" media="all" href="http://www.geonovum.nl/sites/all/themes/geonovum/ie.css?e" />
-    <![endif]-->
-    <link type="text/css" rel="stylesheet" media="all" href="http://privacy.locatielab.nl/viag/css/privacytool.css?20171025_v3" />
+    echo file_get_contents('./css/privacytool.css', FILE_USE_INCLUDE_PATH);
 
+    echo file_get_contents('./css/privacytool_report.css', FILE_USE_INCLUDE_PATH);
+
+    ?>
+    </style>
 </head>
-
 <body>
+<h1>Rapport - Privacy Tool Oude Persoonsgegevens Nieuwe Doelen</h1>
+<h2>Een diagnosticerend hulpmiddel voor de praktijk bij een voorgenomen nieuw gebruik van reeds verzamelde persoonsgegevens</h2>
 
 <?
 echo $data;

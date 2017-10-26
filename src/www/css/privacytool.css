@@ -474,14 +474,21 @@ Actions
     border: 2px solid #ff5522;
 }
 
+a.btn:hover {
+  cursor: pointer;
+}
+
+.extrabuttons a.btn {
+  float: right;
+  margin-top: 1em;
+  margin-right: 15px;
+}
+
 
 a.btn-small {
   font-size: 0.8em;
   padding: 0.2em 0.4em;
   margin-bottom: 0.2em;
-  float: right;
-  margin-top: 1em;
-  margin-right: 15px;
   background-color: #888888;
 }
 
