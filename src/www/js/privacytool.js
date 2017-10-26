@@ -122,7 +122,7 @@ $(document).ready(function() {
           });
 
           // a function to create an extra element that keeps (invisible unless printing) a copy of the answer in a div
-          function copyRadioAnswer(elem){
+          function copyRadioAnswerReport(elem){
             // the label?
             var answerText = $("label[for='"+$(elem).attr('id')+"']").text();
             // create an element that saves the answer as a span
@@ -136,12 +136,13 @@ $(document).ready(function() {
           }
 
           $("#voorvragen .radioQuestion input[type=radio]").change(function() {
-              copyRadioAnswer(this);
+              copyRadioAnswerReport(this);
           });
 
           $(".radioQuestion.score input[type=radio]").change(function() {
-              copyRadioAnswer(this);
+              copyRadioAnswerReport(this);
           });
+
     })
 
 
@@ -216,6 +217,17 @@ function updateIntake (answerId, answerText) {
     if (answerText.length > 0 ) {
         $("#"+answerId).removeClass("invalidanswer");
     }
+    // also: create a copy of the element in the container div
+
+    // a function to create an extra element that keeps (invisible unless printing) a copy of the answer in a div for the report and printing
+    // create an element that saves the answer as a span
+    var copyId2 = answerId +"_copyreport";
+    if ($("#"+ copyId2).length == 0) {
+        // first create the element if it does not exist yet
+        $("#"+answerId).parents(".checkboxIntro").append("<div class='copyAnswer' id='"+copyId2+"'></div>");
+        // alert(copyId2)
+    }
+    $("#"+copyId2).html(answerText);
 }
 
 
@@ -423,6 +435,7 @@ function prepareForReport () {
       // to copy to an HTML document
       $(".extrainfo").hide();
       $(".usernote textarea").hide();
+      $(".inputarea textarea").hide();
       $("a.btn, button").hide();
 
       $("#voorvragen .radioQuestion input").hide();
@@ -433,6 +446,7 @@ function prepareForReport () {
       $(".usernote").show();
       $(".usernotePrint").show();
       $(".copyAnswer").show();
+
 }
 
 // inverse: hide
@@ -441,6 +455,7 @@ function undoPrepareForReport() {
   // $(".extrainfo").show(); // don't show this by default
   $(".usernote").hide();
   $(".usernote textarea").show();
+  $(".inputarea textarea").show();
   $(".usernotePrint").hide();
 
   $(".copyAnswer").hide();

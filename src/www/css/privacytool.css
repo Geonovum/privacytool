@@ -663,7 +663,7 @@ PRINT OVERRIDES
     .radioQuestion { padding-bottom: 2em; }
 
     .copyAnswer{display: block;}
-    .inputarea textarea {width:90%}
+    .inputarea textarea {display: none;}
 
     .extrainfo {display: none;}
 
