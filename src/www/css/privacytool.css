@@ -127,6 +127,25 @@ p {
 
 }
 
+/* Container elements for extra information */
+.collapsed {
+  display: none;
+}
+
+.circlechar {
+    border-radius: 1.2em;
+    width: 1.2em;
+    display: inline-block;
+    text-align: center;
+    font-size: 0.8em;
+    border: 2px solid white;
+    margin-right: 0.5em;
+    padding: 0;
+    height: 1.2em;
+    line-height: 1.2em;
+    font-weight: bold;
+}
+
 #welcomeMessage {
     background-color: #ffffff;
     /*box-shadow: none;
@@ -144,6 +163,14 @@ p {
 
 }
 
+#logo {
+  width: 380px;
+}
+
+#logo img {
+  height: 79px;
+  width: auto;
+}
 
 #descriptions {
     border-top: 2px solid #007bb8;
@@ -236,6 +263,10 @@ Styling of the questionaire and tabs
 #toolform .steps > ul, #toolform .actions > ul {
     list-style-type: none;
     margin: 0em;
+}
+
+h3.htmlreport {
+  visibility: hidden; /* careful: not display, because we need this */
 }
 
 #toolform > .content > h3 {
