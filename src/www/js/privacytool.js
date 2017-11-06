@@ -45,6 +45,17 @@ conditionalGoto["voorvragen-H"] = {"ja":  ".actions"};
     Functions
 */
 $(document).ready(function() {
+
+  $(window).scroll(function(){
+       if ($(this).scrollTop() > 50) {
+           $('.logo').addClass('fixed');
+           $('#logos').addClass('fixed');
+       } else {
+           $('.logo').removeClass('fixed');
+          $('#logos').removeClass('fixed');
+       }
+   });
+
         $("#toolform").steps({
             headerTag: "h3"
             , bodyTag: "section"
@@ -68,7 +79,9 @@ $(document).ready(function() {
             , onStepChanging: function (event, currentIndex, newIndex) {
                 // if back, then don't validate
                 if (newIndex < currentIndex) return true;
-
+                if (newIndex==3) {
+                  $(".afterScores").show();
+                }
                 // if not all answers are provided, then disable and give warning
                 // for radio' questions:
                 var radiosNotAnswered = new Array();
@@ -161,7 +174,12 @@ function toggleUserNotes(elem) {
 
 function scrollToElement(elementId, topMargin) {
     if (!topMargin) topMargin = 0;
-    $(window).scrollTop($("#" + elementId).offset().top - topMargin)
+    var parts = elementId.split("#");
+    if (parts.length==2) {
+      elementId = parts[1];
+    }
+    $(window).scrollTop($("#"+elementId).offset().top - topMargin);
+    return false;
 }
 
 function showMessage(alertTitle, alertMessage) {
@@ -418,9 +436,7 @@ function processAnswers (data) {
             $(this).show();
     });
     startVoorvragen()
-    $('#voorvragen').show();
-    scrollToElement('voorvragen');
-
+    scrollToElement('#voorvragen');
     calculateScores();
     if (processed == 0) {
         alert("Het verwerken van de antwoorden is helaas niet gelukt. Staan er wel antwoorden in of is het bestand misschien tussentijds gewijzigd? Neem contact op met de beheerder als er een andere fout optreedt.")

@@ -139,7 +139,6 @@ p {
     text-align: center;
     font-size: 0.8em;
     border: 2px solid white;
-    margin-right: 0.5em;
     padding: 0;
     height: 1.2em;
     line-height: 1.2em;
@@ -155,7 +154,11 @@ p {
     z-index: 2000;
 }
 
-.panel > button {
+li.afterScores {
+  display: none;
+}
+
+.panel > a {
     float: right;
 }
 
@@ -163,14 +166,39 @@ p {
 
 }
 
-#logo {
-  width: 380px;
+#logos {
+    width: 954px;
+    position: fixed;
+    top: 0px;
+    padding: 10px;
+    height: 100px;
 }
 
-#logo img {
-  height: 79px;
-  width: auto;
+.logo {
+  width: 190px;
 }
+
+.logo img {
+  height: 79px;
+  width: 190px;
+}
+
+.logo.fixed img {
+  height: auto;
+  width: 100px;
+  position: absolute;
+  left: -110px;
+}
+
+#logo2 {
+  float: right;
+}
+#logo2.fixed {
+  float: right;
+  position: absolute;
+  right: -289px;
+}
+
 
 #descriptions {
     border-top: 2px solid #007bb8;
@@ -193,7 +221,7 @@ p {
 }
 
 #main {
-    padding-top: 2em;
+    padding-top: 140px;
 }
 
 #page {
