@@ -1,4 +1,7 @@
 # Privacy tool
+
+> **_NOTE:_**  Dit repository wordt niet meer actief beheerd en heeft de status 'archived'.
+ 
 De privacytool is een eenvoudige webapplicatie die helpt bij het maken van een eerste inschatting van de geoorloofdheid van een voorgenomen nieuw gebruik, waaronder het koppelen, van reeds (rechtmatig) verzamelde persoonsgegevens door overheidsorganisaties.
 
 ## Live versie
